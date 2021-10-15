@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Objects;
+
 public class Tile {
 
     private State currentState;
@@ -74,5 +76,36 @@ public class Tile {
         public String getFormalName() {
             return formalName;
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tile tile = (Tile) o;
+        return row == tile.row && column == tile.column && currentState == tile.currentState && type == tile.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(currentState, type, row, column);
+    }
+
+    @Override
+    public String toString() {
+        return "Tile{" +
+                "currentState=" + currentState +
+                ", type=" + type +
+                ", row=" + row +
+                ", column=" + column +
+                '}';
+    }
+
+    @Override
+    protected Object clone() {
+        // Please don't use
+        Tile clone = new Tile(row, column, type);
+        clone.setCurrentState(currentState);
+        return clone;
     }
 }

@@ -3,11 +3,11 @@ package game;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map {
+public class Board {
 
     private final Tile[][] tiles;
 
-    public Map(int randomSeed) {
+    public Board(int randomSeed) {
         tiles = new Tile[6][6];
 
     }
@@ -36,11 +36,14 @@ public class Map {
         return tileList;
     }
 
+    public boolean isValidIndex(int row, int col) {
+        return (row < 0 || row >= 6 || col < 0 || col >= 6);
+    }
+
     public Tile[][] getTiles() {
         return tiles;
     }
 
-    
 
 }
 
