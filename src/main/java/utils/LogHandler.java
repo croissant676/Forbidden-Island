@@ -134,7 +134,7 @@ public class LogHandler extends Handler {
 
     @Override
     public void publish(LogRecord record) {
-        if(isClosed) {
+        if (isClosed) {
             publish(new LogRecord(Level.WARNING, "Tried to use closed LogHandler. " +
                     "This isn't an issue, because the close method does nothing."));
         }
@@ -165,7 +165,18 @@ public class LogHandler extends Handler {
         } else {
             builder.append('[').append(level.getName()).append("]: ");
         }
-        builder.append(record.getMessage());
+        if (record.getMessage().contains("\n") || record.getMessage().contains("\r")) {
+            String[] strings = record.getMessage().split("\n");
+            String prefix = builder.toString();
+            for (int index = 0; index < strings.length; index++) {
+                builder.append(strings[index]).append('\n');
+                if (index != strings.length - 1) {
+                    builder.append(prefix);
+                }
+            }
+        } else {
+            builder.append(record.getMessage());
+        }
         if (record.getThrown() != null) {
             Throwable throwable = record.getThrown();
             builder.append(" :: Exception: ").append(throwable.getClass().getCanonicalName());
