@@ -11,6 +11,11 @@ public class InterfaceManager {
     private static JFrame frame;
     private static int initStage = 0;
     private static InterfaceManager manager;
+    private static GameLinker linker;
+
+    public static GameLinker getLinker() {
+        return linker;
+    }
 
     public static void initialize() {
         manager = new InterfaceManager();
@@ -28,7 +33,10 @@ public class InterfaceManager {
         JLabel label = new JLabel("This is a temporary label... We'll fix it later.");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         JButton button = new JButton("Exit");
-        button.addActionListener (e -> frame.setVisible(false));
+        button.addActionListener (e -> {
+            frame.setVisible(false);
+            LogHandler.getLogger().info("Frame has been exited.");
+        });
         JPanel panel = new JPanel();
         panel.setLayout(layout);
         panel.add(button, BorderLayout.SOUTH);

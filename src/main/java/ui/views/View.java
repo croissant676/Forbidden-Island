@@ -1,4 +1,4 @@
 package ui.views;
 
-public class View {
+public abstract class View {
 }

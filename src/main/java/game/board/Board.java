@@ -24,6 +24,18 @@ public class Board implements Visualizable {
         }
     }
 
+    public Tile getTileAt(int row, int col) {
+        if(isValidIndex(row, col)) {
+            return tiles[row][col];
+        } else {
+            return null;
+        }
+    }
+
+    public boolean isValidIndex(int row, int col) {
+        return row >= 0 && row < 6 && col >= 0 && col < 6;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -37,7 +49,9 @@ public class Board implements Visualizable {
                     builder.append(str).append(" ".repeat(15 - str.length()));
                 }
             }
-            builder.append('\n');
+            if(row < 5){
+                builder.append('\n');
+            }
         }
         return builder.toString();
     }

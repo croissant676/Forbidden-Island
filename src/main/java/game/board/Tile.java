@@ -54,10 +54,10 @@ public class Tile implements Visualizable {
         if (state == TileState.DRY) {
             button.setIcon(new ImageIcon(tileType.getRegularImage()));
         } else if (state == TileState.FLOODED) {
-            button.setIcon(new ImageIcon(tileType.getRegularImage()));
+            button.setIcon(new ImageIcon(tileType.getFloodedImage()));
         } else {
             // Just to be safe
-            button.setIcon(new ImageIcon(tileType.getRegularImage()));
+            button.setIcon(new ImageIcon(tileType.getFloodedImage()));
             button.setOpaque(false);
         }
         button.setBorder(new FlatBorder());
