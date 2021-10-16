@@ -1,4 +1,4 @@
-package forbidden.utils;
+package utils;
 
 import java.io.OutputStream;
 import java.io.PrintStream;

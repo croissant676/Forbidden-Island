@@ -1,4 +1,4 @@
-package forbidden.utils;
+package utils;
 
 public class Properties {
 

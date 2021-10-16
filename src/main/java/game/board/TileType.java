@@ -1,13 +1,11 @@
+package game.board;
 
-package forbidden.game.board;
-
-import forbidden.utils.LogHandler;
+import utils.LogHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.logging.Logger;
 
 public enum TileType {
@@ -42,10 +40,10 @@ public enum TileType {
 
     TileType(String formalName) {
         this.formalName = formalName;
-        String fileName = name().toLowerCase();
+        String fileName = "/images/" + name().toLowerCase();
         URL dry = getClass().getResource(fileName + "_dry.png");
         URL flooded = getClass().getResource(fileName + "_flooded.png");
-        Logger logger = Logger.getLogger(LogHandler.getId());
+        Logger logger = LogHandler.getLogger();
         if (dry == null || flooded == null) {
             if (dry == null && flooded == null) {
                 logger.warning("Could not load resources: \"" + fileName + "_dry.png\", \"" + fileName + "_flooded.png\".");
@@ -59,7 +57,7 @@ public enum TileType {
                 regularImage = ImageIO.read(dry);
                 floodedImage = ImageIO.read(flooded);
             } catch (IOException ioException) {
-                logger.severe("Attempt to load images:");
+                logger.severe("Attempted to load images:");
                 ioException.printStackTrace(LogHandler.getError());
             }
         }
@@ -69,12 +67,12 @@ public enum TileType {
         return formalName;
     }
 
-    public BufferedImage getFloodedImage() {
-        return floodedImage;
-    }
-
     public BufferedImage getRegularImage() {
         return regularImage;
+    }
+
+    public BufferedImage getFloodedImage() {
+        return floodedImage;
     }
 
     @Override
