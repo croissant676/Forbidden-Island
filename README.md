@@ -2,7 +2,7 @@
 
 A Java implementation of the Forbidden Island board game for Comp Sci 3.
 
-Team members: 
+###Team members: 
   - Stephanie Wang
   - Manas Pathak
   - Ashley Yang
@@ -17,3 +17,5 @@ Team members:
  - Project rules from [Canvas](https://katyisd.instructure.com/courses/461159/files/45562924?module_item_id=22557860)
 
  - [Video](https://www.youtube.com/watch?app=desktop&v=E6Rp7CBkPgY) explaining the rules.
+
+ - [UML](https://lucid.app/lucidchart/dbf5797c-8ad2-4be5-b1e6-03be11a30a67/view) describing which objects are needed.
