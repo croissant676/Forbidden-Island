@@ -1,4 +1,4 @@
-package forbidden.tester;
+package tester;
 
 import utils.LogHandler;
 

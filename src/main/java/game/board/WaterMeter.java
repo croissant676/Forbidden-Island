@@ -11,31 +11,40 @@ import java.net.URL;
 public class WaterMeter {
 
     private final JProgressBar visual;
-    private static BufferedImage background = null;
-
-    private static WaterMeter meter = null;
+    private BufferedImage background;
 
     public WaterMeter(int value) {
-        if (meter != null) {
-            throw new IllegalArgumentException("Water meter is already initialized.");
-        }
         this.visual = new JProgressBar(JProgressBar.VERTICAL);
         visual.setMinimum(2);
         visual.setMaximum(6);
         visual.setValue(value);
-        meter = this;
         URL resource = WaterMeter.class.getResource("/images/water_meter_background.png");
-        try {
-            background = ImageIO.read(resource);
-        } catch (IOException ioException) {
-            LogHandler.getLogger().severe("Attempt to load images:");
-            ioException.printStackTrace(LogHandler.getError());
+        if (resource == null) {
+            LogHandler.getLogger().warning("Could not load resource: \"/images/water_meter_background.png\".");
+        } else {
+            try {
+                background = ImageIO.read(resource);
+            } catch (IOException ioException) {
+                LogHandler.getLogger().severe("Attempt to load images:");
+                ioException.printStackTrace(LogHandler.getError());
+            }
         }
     }
 
+    public BufferedImage getBackground() {
+        return background;
+    }
+
+    public void setBackground(BufferedImage background) {
+        this.background = background;
+    }
+
+    public int getValue() {
+        return visual.getValue();
+    }
 
     public void setValue(int value) {
-        visual.getValue();
+        visual.setValue(value);
     }
 
     public JProgressBar getVisual() {
