@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Logger;
 
-public enum TileType {
+public enum  TileType {
     BREAKERS_BRIDGE("Breakers Bridge"),
     BRONZE_GATE("Bronze Gate"),
     CAVE_OF_EMBERS("Cave of Embers"),

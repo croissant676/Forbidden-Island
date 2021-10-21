@@ -7,7 +7,7 @@ import java.util.*;
 
 public class Board implements Visualizable {
 
-    private Tile[][] tiles;
+    private final Tile[][] tiles;
 
     public Board(long seed) {
         tiles = new Tile[6][6];
