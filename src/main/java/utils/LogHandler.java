@@ -15,7 +15,6 @@ public class LogHandler extends Handler {
     private static final PrintStream error;
     private static final Logger logger;
     private static final String id = "Forbidden_Island_Game";
-
     private static final String configContext = "config.show_calling_method";
 
     static {
@@ -25,7 +24,7 @@ public class LogHandler extends Handler {
         logger.addHandler(new LogHandler());
         logger.setFilter(null);
         logger.setLevel(Level.ALL);
-        error = new PrintStream(new LoggerOutputStream(logger));
+        error = new PrintStream(new LoggerErrorOutputStream(logger));
     }
 
     public static String getId() {
@@ -44,26 +43,17 @@ public class LogHandler extends Handler {
         return error;
     }
 
-    public static class LoggerOutputStream extends OutputStream {
+    @FullyImplemented
+    public static class LoggerErrorOutputStream extends OutputStream {
 
         private final Logger logger;
-        private boolean closed;
 
-        public LoggerOutputStream(Logger logger) {
+        public LoggerErrorOutputStream(Logger logger) {
             this.logger = logger;
-            closed = false;
         }
 
         public Logger getLogger() {
             return logger;
-        }
-
-        public boolean isClosed() {
-            return closed;
-        }
-
-        public void setClosed(boolean closed) {
-            this.closed = closed;
         }
 
         @Override
@@ -77,7 +67,6 @@ public class LogHandler extends Handler {
 
         @Override
         public void write(byte[] bytes, int off, int len) {
-            checkClosed();
             if (off + len > bytes.length || off < 0) {
                 return;
             }
@@ -99,34 +88,25 @@ public class LogHandler extends Handler {
 
         @Override
         public void close() {
-            closed = true;
         }
 
-        private void checkClosed() {
-            if (closed) {
-                logger.warning("Tried to use closed LoggerOutputStream. " +
-                        "This isn't an issue, because the close method does nothing.");
-            }
-        }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            LoggerOutputStream that = (LoggerOutputStream) o;
-            return closed == that.closed && Objects.equals(logger, that.logger);
+            LoggerErrorOutputStream that = (LoggerErrorOutputStream) o;
+            return Objects.equals(logger, that.logger);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(logger, closed);
+            return Objects.hash(logger);
         }
 
         @Override
         public String toString() {
-            return "LoggerOutputStream{" +
-                    "closed=" + closed +
-                    '}';
+            return "LoggerOutputStream";
         }
     }
 

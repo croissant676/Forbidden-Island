@@ -17,7 +17,7 @@ public class FloodCard implements Card{
     }
 
     public boolean isUsable() {
-        return tile.getState() != TileState.SUBMERGED;
+        return tile.getState() != TileState.SUNK;
     }
 
     /** Does not update ui. */
@@ -25,7 +25,7 @@ public class FloodCard implements Card{
         if(tile.getState() == TileState.DRY) {
             tile.setState(TileState.FLOODED);
         } else if(tile.getState() == TileState.FLOODED) {
-            tile.setState(TileState.SUBMERGED);
+            tile.setState(TileState.SUNK);
         } else {
             LogHandler.getLogger().severe("Tried to flood already submerged tile: " + tile);
         }

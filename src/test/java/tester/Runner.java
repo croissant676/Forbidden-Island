@@ -14,8 +14,7 @@ public class Runner {
         // STOPSHIP: 10/15/2021 Remove during production
         Logger logger = LogHandler.getLogger();
         InterfaceManager.initialize();
-        Tile tile = Tile.getSample();
-        Game game = new Game();
+        Game game = new Game(1);
         Board board = game.getBoard();
         logger.config(board.toString());
     }

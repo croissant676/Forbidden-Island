@@ -1,22 +1,40 @@
 package game;
 
 import game.board.Board;
+import game.board.WaterMeter;
+import game.cards.FloodCard;
+import game.cards.FloodDeck;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 public class Game {
-    private final Board board;
-    private Player[] players;
-    private boolean win;
 
-    public Game() {
-        board = new Board(0);
+    private final Board board;
+    private List<Player> players;
+    private boolean win;
+    private final Random random;,
+    private WaterMeter meter;
+    private final FloodDeck deck;
+
+    public Game(long seed) {
+        board = new Board(seed);
+        random = new Random(seed);
+        deck = new FloodDeck();
+        Collections.shuffle(deck, random);
     }
 
     public Board getBoard() {
         return board;
     }
 
-    public Player[] getPlayers() {
+    public List<Player> getPlayers() {
         return players;
+    }
+
+    public void drawCard() {
+
     }
 
 }
