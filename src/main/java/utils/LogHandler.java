@@ -9,6 +9,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 import java.util.logging.*;
 
+/**
+ *
+ *
+ *
+ *
+ * */
 public class LogHandler extends Handler {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss.SSS a");
@@ -43,7 +49,6 @@ public class LogHandler extends Handler {
         return error;
     }
 
-    @FullyImplemented
     public static class LoggerErrorOutputStream extends OutputStream {
 
         private final Logger logger;

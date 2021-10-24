@@ -12,6 +12,7 @@ public class Tile implements Visualizable {
     private final byte col;
     private final TileType tileType;
     private TileState state;
+    private Pawn pawn;
 
     public static Tile getSample() {
         return new Tile((byte) 0, (byte) 0, TileType.LANDING);

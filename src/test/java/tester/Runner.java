@@ -2,7 +2,6 @@ package tester;
 
 import game.Game;
 import game.board.Board;
-import game.board.Tile;
 import ui.InterfaceManager;
 import utils.LogHandler;
 

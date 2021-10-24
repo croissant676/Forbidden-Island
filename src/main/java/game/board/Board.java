@@ -1,12 +1,13 @@
 package game.board;
 
 import game.Visualizable;
-import utils.FullyImplemented;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /** Represents the Board in the game.
  * The board stores things such as pawn locations,
@@ -28,7 +29,7 @@ public class Board implements Visualizable {
      * board layout and the same result.
      * @since 1.0.0
      * */
-    @FullyImplemented
+
     public Board(long seed) {
         tiles = new Tile[6][6];
         List<TileType> tileTypes = new ArrayList<>(List.of(TileType.values()));
@@ -51,7 +52,7 @@ public class Board implements Visualizable {
      * @param col Column of the location
      * @since 1.0.0
      * */
-    @FullyImplemented
+
     public Tile getTileAt(int row, int col) {
         if (isValidIndex(row, col)) {
             return tiles[row][col];
@@ -67,7 +68,7 @@ public class Board implements Visualizable {
      * @param col Column of the location
      * @since 1.0.0
      * */
-    @FullyImplemented
+
     public Tile getTileAtOrError(int row, int col) {
         if (isValidIndex(row, col)) {
             return tiles[row][col];
@@ -83,7 +84,7 @@ public class Board implements Visualizable {
      * @param col Column of the location
      * @return Whether the specified location is a valid index.
      * */
-    @FullyImplemented
+
     public boolean isValidIndex(int row, int col) {
         return row >= 0 && row < 6 && col >= 0 && col < 6;
     }
@@ -92,7 +93,7 @@ public class Board implements Visualizable {
      * @since 1.0.0
      * @return The array of tiles for this board.
      * */
-    @FullyImplemented
+
     public Tile[][] getTiles() {
         return tiles;
     }
@@ -111,7 +112,7 @@ public class Board implements Visualizable {
      * @return A string representation of this board.
      * */
     @Override
-    @FullyImplemented
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (int row = 0; row < 6; row++) {
@@ -139,7 +140,7 @@ public class Board implements Visualizable {
      * @see Visualizable#getVisual()
      * */
     @Override
-    @FullyImplemented
+
     public JComponent getVisual() {
         JPanel panel = new JPanel();
         GridLayout layout = new GridLayout();

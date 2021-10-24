@@ -30,7 +30,7 @@ public class InterfaceManager {
         }
         JFrame frame = new JFrame("Forbidden Island Project.");
         BorderLayout layout = new BorderLayout();
-        JLabel label = new JLabel("This is a temporary ui state: We'll fix it later.");
+        JLabel label = new JLabel("This is a temporary view: We'll fix it later. Bazinga");
         label.setHorizontalAlignment(SwingConstants.CENTER);
         JButton button = new JButton("Exit");
         button.addActionListener (e -> {
