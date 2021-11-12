@@ -1,4 +1,4 @@
-package com.forbidden.board;
+package com.github.swang04.forbidden.backend.board;
 
 import java.awt.image.BufferedImage;
 
