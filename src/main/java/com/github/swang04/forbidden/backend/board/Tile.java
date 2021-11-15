@@ -1,3 +1,18 @@
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
 package com.github.swang04.forbidden.backend.board;
 
 import dev.kason.forbidden.logging.Log;
@@ -14,9 +29,9 @@ public class Tile {
     private final TileType tileType;
     private TileState tileState;
 
-    public Tile(byte x, byte y, TileType tileType) {
-        this.x = x;
-        this.y = y;
+    public Tile(int x, int y, TileType tileType) {
+        this.x = (byte) x;
+        this.y = (byte) y;
         this.tileType = tileType;
         tileState = TileState.DRY;
         logger.info("Hello World!");

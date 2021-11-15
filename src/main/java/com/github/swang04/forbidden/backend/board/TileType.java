@@ -1,4 +1,22 @@
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
 package com.github.swang04.forbidden.backend.board;
+
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.image.BufferedImage;
 
@@ -49,8 +67,9 @@ public enum TileType {
         return floodedImage;
     }
 
+    @Contract(pure = true)
     @Override
-    public String toString() {
+    public @NotNull String toString() {
         return "TileType " + name() + "";
     }
 }

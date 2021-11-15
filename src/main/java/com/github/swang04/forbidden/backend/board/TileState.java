@@ -1,6 +1,21 @@
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
 package com.github.swang04.forbidden.backend.board;
 
-// Author Kason
+// Author: Kason
 public enum TileState {
     DRY,
     FLOODED,
@@ -8,6 +23,10 @@ public enum TileState {
 
     @Override
     public String toString() {
-        return name();
+        return switch (this) {
+            case DRY -> "Dry:0    ";
+            case FLOODED -> "Flooded:1";
+            case SUNK -> "Sunk:2   ";
+        };
     }
 }

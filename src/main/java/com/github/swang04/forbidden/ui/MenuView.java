@@ -1,3 +1,18 @@
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
+/*
+ * This code is the work of Team StephanieW, Forbidden Island.
+ * Please do not use without permission.
+ */
+
 package com.github.swang04.forbidden.ui;
 
 import dev.kason.forbidden.logging.Log;
@@ -13,6 +28,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
+import java.util.logging.Logger;
 
 public class MenuView extends View {
 
@@ -42,7 +58,8 @@ public class MenuView extends View {
         Log.logger().config("Hello wrodl");
         JPanel rules = new JPanel();
         howTo.addActionListener((event) -> {
-            System.out.println(event.getActionCommand());
+            Logger logger = Log.logger();
+            logger.info("Hello World");
             showInstructions();
         });
 
