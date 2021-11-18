@@ -22,7 +22,7 @@ import dev.kason.forbidden.ui.ViewManager;
 
 public class Runner {
     public static void main(String[] args) {
-        View view = MenuView.init();
+        MenuView.init();
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
