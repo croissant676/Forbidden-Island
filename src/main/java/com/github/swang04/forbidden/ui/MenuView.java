@@ -3,17 +3,10 @@
  * Please do not use without permission.
  */
 
-/*
+package com.github.swang04.forbidden.ui;/*
  * This code is the work of Team StephanieW, Forbidden Island.
  * Please do not use without permission.
  */
-
-/*
- * This code is the work of Team StephanieW, Forbidden Island.
- * Please do not use without permission.
- */
-
-package com.github.swang04.forbidden.ui;
 
 import dev.kason.forbidden.logging.Log;
 import dev.kason.forbidden.ui.View;
@@ -69,12 +62,6 @@ public class MenuView extends View {
             JFrame board;
         });
 
-//        try {
-//            BufferedImage myPicture = ImageIO.read(new File(""));
-//            picLabel = new JLabel(new ImageIcon(myPicture));
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         return menu;
     }
 

@@ -3,16 +3,6 @@
  * Please do not use without permission.
  */
 
-/*
- * This code is the work of Team StephanieW, Forbidden Island.
- * Please do not use without permission.
- */
-
-/*
- * This code is the work of Team StephanieW, Forbidden Island.
- * Please do not use without permission.
- */
-
 package dev.kason.forbidden.ui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -32,7 +22,7 @@ public class ViewManager {
     private static final JFrame mainFrame = new JFrame();
     private static View currentView = null;
 
-    static {
+    public static void init() {
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         FlatDarkLaf.setup();
