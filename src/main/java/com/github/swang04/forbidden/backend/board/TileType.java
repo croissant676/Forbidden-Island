@@ -3,18 +3,9 @@
  * Please do not use without permission.
  */
 
-/*
- * This code is the work of Team StephanieW, Forbidden Island.
- * Please do not use without permission.
- */
-
-/*
- * This code is the work of Team StephanieW, Forbidden Island.
- * Please do not use without permission.
- */
-
 package com.github.swang04.forbidden.backend.board;
 
+import com.github.swang04.forbidden.backend.treasure.Treasure;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,5 +62,15 @@ public enum TileType {
     @Override
     public @NotNull String toString() {
         return "TileType " + name() + "";
+    }
+
+    public static Treasure getTreasure(TileType tileType) {
+        return switch (tileType) {
+            case CAVE_OF_SHADOW, CAVE_OF_EMBERS -> Treasure.CRYSTAL_OF_FIRE;
+            case MOON_TEMPLE, SUN_TEMPLE -> Treasure.EARTH_STONE;
+            case TIDAL_PALACE, CORAL_PALACE -> Treasure.OCEAN_CHALICE;
+            case WHISPERING_GARDEN, HOWLING_GARDEN -> Treasure.STATUE_OF_WIND;
+            default -> null;
+        };
     }
 }

@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.backend.board;
 
+import com.github.swang04.forbidden.backend.treasure.Treasure;
 import dev.kason.forbidden.logging.Log;
 
 import java.util.Objects;
@@ -18,14 +19,16 @@ public class Tile {
     private final byte y;
     private final TileType tileType;
     private TileState tileState;
+    private final Treasure treasure;
 
     public Tile(int x, int y, TileType tileType) {
         this.x = (byte) x;
         this.y = (byte) y;
         this.tileType = tileType;
         tileState = TileState.DRY;
-        logger.info("Hello World!");
+        treasure = TileType.getTreasure(tileType);
     }
+
 
     public int getX() {
         return x;
@@ -41,6 +44,10 @@ public class Tile {
 
     public TileState getTileState() {
         return tileState;
+    }
+
+    public Treasure getTreasure() {
+        return treasure;
     }
 
     public void setTileState(TileState tileState) {
