@@ -7,22 +7,22 @@ package com.github.swang04.forbidden.backend.board;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class Board {
 
-    public static Board board = new Board(123);
-
-    public static Board getBoard() {
-        return board;
-    }
-
+    public static final Random random = new Random(0);
+    private static Board instance;
     private final Tile[][] tiles;
+    private Map<TileType, Tile> tileTypeTileMap = null;
 
-    public Board(int seed) {
+    private Board(int seed) {
         tiles = new Tile[6][6];
         List<TileType> tileTypeList = new ArrayList<>(List.of(TileType.values()));
-        Collections.shuffle(tileTypeList);
+        Collections.shuffle(tileTypeList, new Random(seed));
         int count = 0;
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
@@ -33,11 +33,42 @@ public class Board {
         }
     }
 
+    public static Board getInstance() {
+        return instance;
+    }
+
+    public static Board create() {
+        return create(random.nextInt());
+    }
+
+    public static Board create(int seed) {
+        return new Board(seed);
+    }
+
     public Tile getTileAt(int x, int y) {
-        if(isValidTile(x, y)) {
+        if (isValidTile(x, y)) {
             return tiles[x][y];
         }
         return null;
+    }
+
+    private void initTileTypeTileMap() {
+        tileTypeTileMap = new HashMap<>();
+        for (int row = 0; row < 6; row++) {
+            for (int col = 0; col < 6; col++) {
+                Tile tile = tiles[row][col];
+                if (tile != null) {
+                    tileTypeTileMap.put(tile.getTileType(), tile);
+                }
+            }
+        }
+    }
+
+    public Tile getTileFor(TileType tileType) {
+        if (tileTypeTileMap == null) {
+            initTileTypeTileMap();
+        }
+        return tileTypeTileMap.get(tileType);
     }
 
     public boolean isValidTile(int x, int y) {

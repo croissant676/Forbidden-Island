@@ -19,6 +19,7 @@ public class Pawn {
     public Pawn(Player player) {
         this.player = player;
         playerType = player.getPlayerType();
+        this.tile;
     }
 
     public Player getControllingPlayer() {
