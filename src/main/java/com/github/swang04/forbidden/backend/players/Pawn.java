@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.board.Tile;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class Pawn {
     public Pawn(Player player) {
         this.player = player;
         playerType = player.getPlayerType();
-        this.tile;
+        this.tile = Board.getInstance().getTileFor(playerType.getSpawn());
     }
 
     public Player getControllingPlayer() {

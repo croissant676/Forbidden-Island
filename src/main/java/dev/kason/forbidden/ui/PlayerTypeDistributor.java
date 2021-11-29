@@ -14,12 +14,13 @@ import java.util.List;
 public class PlayerTypeDistributor {
 
     private static final ArrayList<PlayerType> playerTypes = new ArrayList<>(List.of(PlayerType.values()));
+    private static int currentIndex = 0;
 
     static {
         Collections.shuffle(playerTypes);
     }
 
     public static PlayerType getNextPlayerType() {
-        return null;
+        return playerTypes.get(currentIndex++ % 6);
     }
 }

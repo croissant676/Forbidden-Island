@@ -5,12 +5,15 @@
 
 package com.github.swang04.forbidden.backend.board;
 
+import dev.kason.forbidden.logging.Log;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.logging.Logger;
 
 public class Board {
 
@@ -19,7 +22,11 @@ public class Board {
     private final Tile[][] tiles;
     private Map<TileType, Tile> tileTypeTileMap = null;
 
+    private static final Logger logger = Log.logger();
+
     private Board(int seed) {
+        logger.info("Created board!");
+        instance = this;
         tiles = new Tile[6][6];
         List<TileType> tileTypeList = new ArrayList<>(List.of(TileType.values()));
         Collections.shuffle(tileTypeList, new Random(seed));
