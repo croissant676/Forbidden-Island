@@ -6,7 +6,7 @@
 package com.github.swang04.forbidden.backend.players;
 
 // Representing interface
-public class Card {
+public interface Card {
 
 
 }
