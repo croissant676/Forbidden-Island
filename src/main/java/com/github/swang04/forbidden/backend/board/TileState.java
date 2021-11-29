@@ -13,9 +13,9 @@ public enum TileState {
     @Override
     public String toString() {
         return switch (this) {
-            case DRY -> "Dry:0    ";
-            case FLOODED -> "Flooded:1";
-            case SUNK -> "Sunk:2   ";
+            case DRY -> "Dry";
+            case FLOODED -> "Flooded";
+            case SUNK -> "Sunk";
         };
     }
 }

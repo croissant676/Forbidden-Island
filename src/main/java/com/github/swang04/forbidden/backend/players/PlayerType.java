@@ -5,6 +5,17 @@
 
 package com.github.swang04.forbidden.backend.players;
 
-public enum PlayerType {
+import java.util.List;
 
+public enum PlayerType {
+    EXPLORER {
+
+    },
+    DIVER {
+
+    };
+
+    public List<Move> getMoves(Pawn pawn) {
+        return null;
+    }
 }

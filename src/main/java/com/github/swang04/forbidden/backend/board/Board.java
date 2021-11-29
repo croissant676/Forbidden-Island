@@ -6,9 +6,9 @@
 package com.github.swang04.forbidden.backend.board;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 public class Board {
 
@@ -27,6 +27,7 @@ public class Board {
         int count = 0;
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
+                // Creates the desired shape
                 if (row + col < 2 || row + col > 8 || Math.abs(row - col) >= 4) continue;
                 tiles[row][col] = new Tile(row, col, tileTypeList.get(count++));
             }
@@ -50,9 +51,10 @@ public class Board {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
                 Tile tile = getTileAt(row, col);
-                builder.append(String.format("%10s", tile.toString()));
+                builder.append(String.format("%10s", Objects.requireNonNullElse(tile, "null")));
             }
             builder.append("\n");
         }
+        return builder.toString();
     }
 }

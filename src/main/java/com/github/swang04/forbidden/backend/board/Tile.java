@@ -67,6 +67,10 @@ public class Tile {
         return Objects.hash(x, y, tileType, tileState);
     }
 
+    public String shortRep() {
+        return "[" + x + "," + y + ":s=" + tileState.ordinal() + ",t=" + tileType.ordinal() + ",r=" + ((this.treasure == null) ? "n" : treasure.ordinal()) + "]";
+    }
+
     @Override
     public String toString() {
         return "Tile{" +

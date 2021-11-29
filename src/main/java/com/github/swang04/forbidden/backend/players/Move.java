@@ -17,25 +17,11 @@ public interface Move {
 
     void apply();
 
-    class Movement implements Move {
+    class AbstractMoveClass implements Move {
 
-        private final Pawn pawn;
-        private final Tile tile;
-        Logger logger = Log.logger();
+        private static final Logger logger = Log.logger();
+
         private boolean applied = false;
-
-        public Movement(Pawn pawn, Tile tile) {
-            this.pawn = pawn;
-            this.tile = tile;
-        }
-
-        public Tile getTile() {
-            return tile;
-        }
-
-        public Pawn getPawn() {
-            return pawn;
-        }
 
         @Override
         public boolean getApplied() {
@@ -44,49 +30,53 @@ public interface Move {
 
         @Override
         public void apply() {
-            if (applied) return;
+            if (applied) {
+                logger.info("Error: Move already applied");
+                throw new IllegalStateException("Move " + getClass().getName() + " has already been applied.");
+            }
             applied = true;
-            pawn.setTile(tile);
-            logger.info("Moving " + pawn + " to [" + tile.getX() + ", " + tile.getY() + "].");
+        }
+
+        public Logger getLogger() {
+            return logger;
         }
     }
 
-    class Trade implements Move {
+    class Movement extends AbstractMoveClass {
 
-        private final Player sender;
-        private final Player receiving;
-        private final Card card;
-        private boolean applied = false;
+        private Pawn player;
+        private Tile location;
 
-        public Trade(Player sender, Player receiving, Card card) {
-            this.sender = sender;
-            this.receiving = receiving;
-            this.card = card;
+        public Movement(Pawn player, Tile location) {
+            this.player = player;
+            this.location = location;
         }
 
-        public Card getCard() {
-            return card;
+        public Pawn getPlayer() {
+            return player;
         }
 
-        public Player getReceiving() {
-            return receiving;
+        public void setPlayer(Pawn player) {
+            this.player = player;
         }
 
-        public Player getSender() {
-            return sender;
+        public Tile getLocation() {
+            return location;
         }
 
-        @Override
-        public boolean getApplied() {
-            return false;
+        public void setLocation(Tile location) {
+            this.location = location;
         }
 
         @Override
         public void apply() {
-            if (applied) return;
-            applied = true;
-
+            super.apply();
+            player.setTile(location);
         }
+    }
+
+    class Trade extends AbstractMoveClass {
+
     }
 
 }
