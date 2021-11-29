@@ -34,7 +34,10 @@ public class ImageStorage {
 
     Map<String, BufferedImage> images = new HashMap<>();
 
-    public static BufferedImage retrieveImage(String str) {
+    public static @Nullable BufferedImage retrieveImage(String str) {
+        if (!str.contains(".")) {
+            str = str + ".png";
+        }
         BufferedImage image = easyRetrieve(str);
         if (image == null) {
             BufferedImage image1 = hardRetrieve(str);

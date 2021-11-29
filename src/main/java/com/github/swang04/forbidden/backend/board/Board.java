@@ -8,7 +8,6 @@ package com.github.swang04.forbidden.backend.board;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public class Board {
 
@@ -51,7 +50,13 @@ public class Board {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
                 Tile tile = getTileAt(row, col);
-                builder.append(String.format("%10s", Objects.requireNonNullElse(tile, "null")));
+                if (tile == null) {
+                    builder.append(" ".repeat(20));
+                } else {
+                    String str = tile.shortRep();
+                    // Use string.format possibly?
+                    builder.append(str).append(" ".repeat(20 - str.length()));
+                }
             }
             builder.append("\n");
         }

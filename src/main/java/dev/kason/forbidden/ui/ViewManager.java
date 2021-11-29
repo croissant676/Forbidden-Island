@@ -22,7 +22,7 @@ public class ViewManager {
     private static final JFrame mainFrame = new JFrame();
     private static View currentView = null;
 
-    public static void init() {
+    static {
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         FlatDarkLaf.setup();

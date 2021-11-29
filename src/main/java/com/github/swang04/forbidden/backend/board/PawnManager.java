@@ -3,10 +3,7 @@
  * Please do not use without permission.
  */
 
-package com.github.swang04.forbidden.backend.players;
+package com.github.swang04.forbidden.backend.board;
 
-// Representing interface
-public class Card {
-
-
+public class PawnManager {
 }

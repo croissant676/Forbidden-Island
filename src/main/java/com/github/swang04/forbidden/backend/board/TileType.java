@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.backend.board;
 
+import com.github.swang04.forbidden.backend.players.PlayerType;
 import com.github.swang04.forbidden.backend.treasure.Treasure;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -42,9 +43,8 @@ public enum TileType {
     private BufferedImage regularImage;
     private BufferedImage floodedImage;
 
-    TileType(String formalName) {
-        this.formalName = formalName;
-    }
+    private static boolean spawnInvoked = false;
+    private PlayerType spawn;
 
     public String getFormalName() {
         return formalName;
@@ -62,6 +62,33 @@ public enum TileType {
     @Override
     public @NotNull String toString() {
         return "TileType " + name() + "";
+    }
+
+    TileType(String formalName) {
+        this.formalName = formalName;
+        spawn = null;
+    }
+
+    private static void initPlayersSpawns() {
+        spawnInvoked = true;
+        // A bit long, but it'll work
+        LANDING.spawn = PlayerType.PILOT;
+        PlayerType.PILOT.setSpawn(LANDING);
+        SILVER_GATE.spawn = PlayerType.MESSENGER;
+        PlayerType.MESSENGER.setSpawn(SILVER_GATE);
+        IRON_GATE.spawn = PlayerType.DIVER;
+        PlayerType.DIVER.setSpawn(IRON_GATE);
+        COPPER_GATE.spawn = PlayerType.EXPLORER;
+        PlayerType.EXPLORER.setSpawn(COPPER_GATE);
+        BRONZE_GATE.spawn = PlayerType.ENGINEER;
+        PlayerType.ENGINEER.setSpawn(BRONZE_GATE);
+        GOLD_GATE.spawn = PlayerType.NAVIGATOR;
+        PlayerType.NAVIGATOR.setSpawn(GOLD_GATE);
+    }
+
+    public PlayerType getPlayerTypeSpawn() {
+        if (!spawnInvoked) initPlayersSpawns();
+        return spawn;
     }
 
     public static Treasure getTreasure(TileType tileType) {

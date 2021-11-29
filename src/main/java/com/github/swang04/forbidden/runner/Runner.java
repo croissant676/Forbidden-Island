@@ -12,7 +12,10 @@ import com.github.swang04.forbidden.ui.WinView;
 
 public class Runner {
     public static void main(String[] args) {
-        MenuView.init();
+        Board board = new Board(123);
+        System.out.println(board);
+        board = new Board(123123);
+        System.out.println(board);
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

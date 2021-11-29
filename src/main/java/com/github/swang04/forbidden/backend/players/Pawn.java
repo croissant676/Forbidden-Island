@@ -14,8 +14,11 @@ public class Pawn {
     private Tile tile;
     private final Player player;
 
+    private final PlayerType playerType;
+
     public Pawn(Player player) {
         this.player = player;
+        playerType = player.getPlayerType();
     }
 
     public Player getControllingPlayer() {
@@ -36,5 +39,26 @@ public class Pawn {
 
     public boolean canTradeWith(Pawn pawn) {
         return false;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public PlayerType getPlayerType() {
+        return playerType;
+    }
+
+    public String shortRep() {
+        return "{" + tile.getX() + "," + tile.getY() + ",t=" + playerType.ordinal() + ",p=" + player.getName() + "}";
+    }
+
+    @Override
+    public String toString() {
+        return "Pawn{" +
+                "tile=" + tile +
+                ", player=" + player +
+                ", playerType=" + playerType +
+                '}';
     }
 }

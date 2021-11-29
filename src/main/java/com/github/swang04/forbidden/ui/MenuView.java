@@ -3,10 +3,7 @@
  * Please do not use without permission.
  */
 
-package com.github.swang04.forbidden.ui;/*
- * This code is the work of Team StephanieW, Forbidden Island.
- * Please do not use without permission.
- */
+package com.github.swang04.forbidden.ui;
 
 import dev.kason.forbidden.logging.Log;
 import dev.kason.forbidden.ui.View;
@@ -55,18 +52,11 @@ public class MenuView extends View {
             logger.info("Hello World");
             showInstructions();
         });
-         //:)))
-
-
-
-
-
         play.addActionListener((event) -> {
             System.out.println("Something may happen ");
             System.out.println("Same window");
             JFrame board;
         });
-
         return menu;
     }
 
@@ -82,6 +72,7 @@ public class MenuView extends View {
                 The file called BingoCards.pdf contains all the blank bingo cards with their corresponding ids""";
         textArea.setText(instructions);
         textArea.setEditable(false);
+        textArea.setLineWrap(true);
         dialog.add(textArea);
         dialog.setSize(300, 300);
         dialog.setVisible(true);
