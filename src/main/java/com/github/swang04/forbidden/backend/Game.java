@@ -7,6 +7,7 @@ package com.github.swang04.forbidden.backend;
 
 import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.board.PawnManager;
+import com.github.swang04.forbidden.backend.board.WaterMeter;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
 
 import java.util.Random;
@@ -16,18 +17,26 @@ public class Game {
     private static Game game = new Game();
 
     private Board board;
-    private Random random;
-    private PlayerManager playerManager;
-    private PawnManager pawnManager;
+    private final WaterMeter waterMeter;
+    private final Random random;
+    private final PlayerManager playerManager;
+    private final PawnManager pawnManager;
 
     public Game() {
         // Only for testing purposes
-        this(0, "Bob", "Alice", "Joncadence");
+        this(0, WaterMeter.NOVICE, "Bob", "Ashhsley", "Joncadence");
     }
 
-    public Game(int seed, String... names) {
+    public Game(int seed, int waterSettings, String... names) {
         board = Board.create(seed);
+        playerManager = new PlayerManager(names);
+        waterMeter = new WaterMeter(waterSettings);
+        random = new Random(seed);
+        pawnManager = new PawnManager(this);
+    }
 
+    public WaterMeter getWaterMeter() {
+        return waterMeter;
     }
 
     public Board getBoard() {
@@ -58,4 +67,8 @@ public class Game {
         Game.game = game;
     }
 
+    @Override
+    public String toString() {
+        return "Board\n" + board + "\nPlayers\n" + playerManager + "\nPawns\n" + pawnManager;
+    }
 }

@@ -6,7 +6,6 @@
 package com.github.swang04.forbidden.runner;
 
 import com.github.swang04.forbidden.backend.Game;
-import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.ui.LossView;
 import com.github.swang04.forbidden.ui.MenuView;
 import com.github.swang04.forbidden.ui.WinView;
@@ -20,7 +19,8 @@ public class Runner {
 
     public static void main(String[] args) {
         Game game = Game.getGame();
-        System.out.println(Board.getInstance());
+        System.out.println(game);
+        MenuView.init();
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")

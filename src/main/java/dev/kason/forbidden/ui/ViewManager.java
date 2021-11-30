@@ -19,13 +19,14 @@ public class ViewManager {
     private static final HashMap<String, View> viewHashMap = new HashMap<>();
     private static final HashMap<View, JFrame> frameMap = new HashMap<>();
     private static final Logger logger = Log.logger();
-    private static final JFrame mainFrame = new JFrame();
+    private static final JFrame mainFrame;
     private static View currentView = null;
 
     static {
+        FlatDarkLaf.setup();
+        mainFrame = new JFrame();
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        FlatDarkLaf.setup();
     }
 
     public static void register(@NotNull View view) {

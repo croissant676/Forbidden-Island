@@ -46,6 +46,7 @@ public class ImageStorage {
                 return null;
             }
             images.put(str, image1);
+            return image1;
         }
         return image;
     }

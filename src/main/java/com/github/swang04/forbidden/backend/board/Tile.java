@@ -111,7 +111,7 @@ public class Tile {
     }
 
     public String managerRep() {
-        return "Tr:" + ((this.treasure == null) ? "n" : treasure.ordinal()) + ",TT" + tileType.ordinal();
+        return "Tr:" + ((this.treasure == null) ? "n" : treasure.ordinal()) + ",TT:" + tileType.ordinal();
     }
 
     @Override

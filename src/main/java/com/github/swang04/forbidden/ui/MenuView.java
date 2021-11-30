@@ -10,6 +10,7 @@ import dev.kason.forbidden.logging.Log;
 import dev.kason.forbidden.ui.View;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
@@ -30,6 +31,7 @@ public class MenuView extends View {
         super("Menu");
     }
 
+
     @SuppressWarnings("UnusedReturnValue")
     public static MenuView init() {
         return view;
@@ -37,6 +39,10 @@ public class MenuView extends View {
 
     @Override
     public @NotNull JComponent getDisplay() {
+        if (bufferedImage == null) {
+            bufferedImage = ImageStorage.retrieveImage("menu_background.jpg");
+            System.out.println(bufferedImage);
+        }
         JPanel menu = new JPanel();
         menu.setSize(500, 500);
         JLabel title = new JLabel("Forbidden Island");

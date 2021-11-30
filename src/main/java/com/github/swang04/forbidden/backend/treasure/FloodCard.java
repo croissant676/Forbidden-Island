@@ -5,5 +5,9 @@
 
 package com.github.swang04.forbidden.backend.treasure;
 
-public class FloodCard {
+import com.github.swang04.forbidden.backend.players.Card;
+
+public class FloodCard implements Card {
+
+
 }

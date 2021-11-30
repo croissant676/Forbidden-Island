@@ -7,7 +7,16 @@ package com.github.swang04.forbidden.backend.board;
 
 public class WaterMeter {
 
+    public static final int NOVICE = 0;
+    public static final int NORMAL = 1;
+    public static final int ELITE = 2;
+    public static final int LEGENDARY = 3;
+
     private int state;
+
+    public WaterMeter(int state) {
+        this.state = state;
+    }
 
     public void raiseWaterLevel() {
         state++;
