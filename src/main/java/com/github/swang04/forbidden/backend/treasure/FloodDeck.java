@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.backend.treasure;
 
+import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.players.Deck;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,11 @@ public class FloodDeck extends Deck<FloodCard> {
     private static FloodDeck floodDeck;
     private ArrayDeque<FloodCard> floodCards;
     private ArrayDeque<FloodCard> drawnCards;
+
+    public FloodDeck(Board board) {
+        floodDeck = this;
+
+    }
 
     public static FloodDeck getFloodDeck() {
         return floodDeck;

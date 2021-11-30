@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.backend.board;
 
+import com.github.swang04.forbidden.backend.treasure.FloodDeck;
 import dev.kason.forbidden.logging.Log;
 
 import java.util.ArrayList;
@@ -20,6 +21,8 @@ public class Board {
     private static Board instance;
     private final Tile[][] tiles;
     private Map<TileType, Tile> tileTypeTileMap = null;
+
+    private FloodDeck floodDeck;
 
     private static final Logger logger = Log.logger();
 
@@ -56,6 +59,10 @@ public class Board {
             return tiles[x][y];
         }
         return null;
+    }
+
+    public FloodDeck getFloodDeck() {
+        return floodDeck;
     }
 
     private void initTileTypeTileMap() {

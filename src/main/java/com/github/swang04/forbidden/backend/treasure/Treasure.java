@@ -5,11 +5,15 @@
 
 package com.github.swang04.forbidden.backend.treasure;
 
-public enum Treasure {
+import com.github.swang04.forbidden.backend.players.Player;
+
+public enum Treasure implements InventoryItem {
     EARTH_STONE,
     CRYSTAL_OF_FIRE,
     STATUE_OF_WIND,
     OCEAN_CHALICE;
+
+    private Player holder = null;
 
     public String getFileName() {
         return switch (this) {
@@ -32,5 +36,14 @@ public enum Treasure {
     @Override
     public String toString() {
         return name();
+    }
+
+    @Override
+    public Player getHolder() {
+        return holder;
+    }
+
+    public void setHolder(Player holder) {
+        this.holder = holder;
     }
 }

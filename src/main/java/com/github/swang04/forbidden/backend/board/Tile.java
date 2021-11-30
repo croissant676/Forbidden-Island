@@ -49,6 +49,14 @@ public class Tile {
         return treasure;
     }
 
+    public boolean isFlooded() {
+        return tileState == TileState.SUNK || tileState == TileState.FLOODED;
+    }
+
+    public String getEffectiveName() {
+        return tileType.getFormalName();
+    }
+
     public void setTileState(TileState tileState) {
         this.tileState = tileState;
     }
