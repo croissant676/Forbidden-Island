@@ -78,6 +78,10 @@ public class Board {
         return tileTypeTileMap.get(tileType);
     }
 
+    public boolean canMoveTo(int x, int y) {
+        return isNotNull(x, y) && getTileAt(x, y).getTileState() != TileState.SUNK;
+    }
+
     public boolean isNotNull(int x, int y) {
         return isValidTile(x, y) && getTileAt(x, y) != null;
     }

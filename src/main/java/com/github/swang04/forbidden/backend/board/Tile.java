@@ -29,7 +29,6 @@ public class Tile {
         treasure = TileType.getTreasure(tileType);
     }
 
-
     public int getX() {
         return x;
     }
@@ -59,7 +58,39 @@ public class Tile {
     }
 
     public Tile getAbove() {
-        return Board.getInstance().getTileAt(x, y - 1);
+        return getRelation(0, -1);
+    }
+
+    public Tile getLeft() {
+        return getRelation(-1, 0);
+    }
+
+    public Tile getBelow() {
+        return getRelation(0, 1);
+    }
+
+    public Tile getRight() {
+        return getRelation(1, 0);
+    }
+
+    public Tile getTopRight() {
+        return getRelation(1, -1);
+    }
+
+    public Tile getTopLeft() {
+        return getRelation(-1, -1);
+    }
+
+    public Tile getBottomRight() {
+        return getRelation(1, -1);
+    }
+
+    public Tile getBottomLeft() {
+        return getRelation(-1, 1);
+    }
+
+    public Tile getRelation(int xDiff, int yDiff) {
+        return Board.getInstance().getTileAt(x + xDiff, y + yDiff);
     }
 
     @Override
@@ -77,6 +108,10 @@ public class Tile {
 
     public String shortRep() {
         return "[" + x + "," + y + ":s=" + tileState.ordinal() + ",t=" + tileType.ordinal() + ",r=" + ((this.treasure == null) ? "n" : treasure.ordinal()) + "]";
+    }
+
+    public String managerRep() {
+        return "Tr:" + ((this.treasure == null) ? "n" : treasure.ordinal()) + ",TT" + tileType.ordinal();
     }
 
     @Override

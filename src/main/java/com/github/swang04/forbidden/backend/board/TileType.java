@@ -57,6 +57,14 @@ public enum TileType {
         return floodedImage;
     }
 
+    public String regFileLocation() {
+        return "dry_" + name().toLowerCase() + ".png";
+    }
+
+    public String floodFileLocation() {
+        return "flooded_" + name().toLowerCase() + ".png";
+    }
+
     static {
         LANDING.spawn = PlayerType.PILOT;
         PlayerType.PILOT.setSpawn(LANDING);
@@ -101,5 +109,33 @@ public enum TileType {
         };
     }
 
+    public String shortRep() {
+        return switch (this) {
+            case LANDING -> "FLnd";
+            case GOLD_GATE -> "AuGt";
+            case IRON_GATE -> "FeGt";
+            case SUN_TEMPLE -> "STpl";
+            case WATCHTOWER -> "WTow";
+            case BRONZE_GATE -> "BzGt";
+            case COPPER_GATE -> "CuGt";
+            case LOST_LAGOON -> "LLag";
+            case MISTY_MARSH -> "MMar";
+            case MOON_TEMPLE -> "MTpl";
+            case OBSERVATORY -> "Obsv";
+            case SILVER_GATE -> "AgGt";
+            case CORAL_PALACE -> "CPal";
+            case PHANTOM_ROCK -> "PhRk";
+            case TIDAL_PALACE -> "TPal";
+            case CAVE_OF_EMBERS -> "CvoE";
+            case CAVE_OF_SHADOW -> "CvoS";
+            case CRIMSON_FOREST -> "CFrt";
+            case HOWLING_GARDEN -> "HGdn";
+            case BREAKERS_BRIDGE -> "BrkB";
+            case TWILIGHT_HOLLOW -> "TwlH";
+            case CLIFFS_OF_ABANDON -> "CloA";
+            case WHISPERING_GARDEN -> "WGdn";
+            case DUNES_OF_DECEPTION -> "DoDc";
+        };
+    }
 
 }

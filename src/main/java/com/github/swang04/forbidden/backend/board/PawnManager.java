@@ -32,10 +32,11 @@ public class PawnManager {
         return pawns;
     }
 
-    public void displayPawnLocations() {
+    @Override
+    public String toString() {
         StringBuilder builder = new StringBuilder();
         String[][] array = new String[6][6];
-        String str = " ".repeat(15);
+        String str = " ".repeat(20);
         Set<Pawn> remainingPawns = new HashSet<>(pawns);
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
@@ -48,6 +49,7 @@ public class PawnManager {
                         }
                     }
                     if (pawns.isEmpty()) {
+                        String string = tile.managerRep();
 
                         continue;
                     }
@@ -56,5 +58,12 @@ public class PawnManager {
                 array[row][col] = str;
             }
         }
+        for (String[] strings : array) {
+            for (String string : strings) {
+                builder.append(string);
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 }
