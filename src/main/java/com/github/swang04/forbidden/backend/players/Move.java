@@ -78,9 +78,9 @@ public interface Move {
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
-            if (!(o instanceof Movement)) return false;
-            Movement movement = (Movement) o;
-            return Objects.equals(player, movement.player) && Objects.equals(location, movement.location);
+            if (!(o instanceof Movement movement)) return false;
+            return Objects.equals(player, movement.player) &&
+                    Objects.equals(location, movement.location);
         }
 
         @Override
@@ -138,7 +138,7 @@ public interface Move {
         public void apply() {
             super.apply();
             giver.getCards().remove(card);
-            receiver.getCards().add(card);
+            receiver.receiveCard(card);
         }
 
         @Override

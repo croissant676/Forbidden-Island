@@ -3,7 +3,7 @@
  * Please do not use without permission.
  */
 
-package dev.kason.forbidden.ui;
+package dev.kason.forbidden;
 
 import com.github.swang04.forbidden.backend.players.PlayerType;
 
@@ -16,11 +16,10 @@ public class PlayerTypeDistributor {
     private static final ArrayList<PlayerType> playerTypes = new ArrayList<>(List.of(PlayerType.values()));
     private static int currentIndex = 0;
 
-    static {
-        Collections.shuffle(playerTypes);
-    }
-
     public static PlayerType getNextPlayerType() {
+        if (currentIndex % 6 == 0) {
+            Collections.shuffle(playerTypes);
+        }
         return playerTypes.get(currentIndex++ % 6);
     }
 }

@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 
 public class Board {
 
-    public static final Random random = new Random(0);
     private static Board instance;
     private final Tile[][] tiles;
     private Map<TileType, Tile> tileTypeTileMap = null;
@@ -45,7 +44,7 @@ public class Board {
     }
 
     public static Board create() {
-        return create(random.nextInt());
+        return create(0);
     }
 
     public static Board create(int seed) {
@@ -60,6 +59,7 @@ public class Board {
     }
 
     private void initTileTypeTileMap() {
+        logger.info("Initializing TileTypeTileMap");
         tileTypeTileMap = new HashMap<>();
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
@@ -76,6 +76,10 @@ public class Board {
             initTileTypeTileMap();
         }
         return tileTypeTileMap.get(tileType);
+    }
+
+    public boolean isNotNull(int x, int y) {
+        return isValidTile(x, y) && getTileAt(x, y) != null;
     }
 
     public boolean isValidTile(int x, int y) {

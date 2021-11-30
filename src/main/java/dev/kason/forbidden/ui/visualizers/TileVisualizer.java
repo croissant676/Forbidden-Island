@@ -15,11 +15,17 @@ import javax.swing.JComponent;
 public class TileVisualizer extends Visualizer<Tile> {
     @Override
     public JComponent visualize(Tile object) {
+        if (object == null) {
+            // Do something similar but empty
+            return null;
+        }
         TileType tileType = object.getTileType();
         TileState state = object.getTileState();
         if (state == TileState.SUNK) {
-            return null;
+
         } else if (state == TileState.DRY) {
+
+        } else {
 
         }
         return null;

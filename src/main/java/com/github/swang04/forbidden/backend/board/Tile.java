@@ -54,6 +54,14 @@ public class Tile {
         this.tileState = tileState;
     }
 
+    public void progressFlooding() {
+        tileState = (tileState == TileState.DRY) ? TileState.FLOODED : TileState.SUNK;
+    }
+
+    public Tile getAbove() {
+        return Board.getInstance().getTileAt(x, y - 1);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -62,14 +62,14 @@ public class ViewManager {
             frame.setVisible(true);
             // Don't want the entire app to close because of an extra frame
             frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-            logger.config("Added frame: " + view.getName());
+            logger.info("Added frame: " + view.getName());
             return;
         }
         currentView = view;
         mainFrame.add(currentView.getDisplay());
         mainFrame.setTitle(view.getTitle());
         mainFrame.setSize(view.getDisplay().getSize());
-        logger.config("Set the view: " + view.getName());
+        logger.info("Set the view: " + view.getName());
     }
 
     public static View getCurrentView() {

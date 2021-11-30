@@ -43,7 +43,6 @@ public enum TileType {
     private BufferedImage regularImage;
     private BufferedImage floodedImage;
 
-    private static boolean spawnInvoked = false;
     private PlayerType spawn;
 
     public String getFormalName() {
@@ -58,20 +57,7 @@ public enum TileType {
         return floodedImage;
     }
 
-    @Contract(pure = true)
-    @Override
-    public @NotNull String toString() {
-        return "TileType " + name() + "";
-    }
-
-    TileType(String formalName) {
-        this.formalName = formalName;
-        spawn = null;
-    }
-
-    private static void initPlayersSpawns() {
-        spawnInvoked = true;
-        // A bit long, but it'll work
+    static {
         LANDING.spawn = PlayerType.PILOT;
         PlayerType.PILOT.setSpawn(LANDING);
         SILVER_GATE.spawn = PlayerType.MESSENGER;
@@ -86,9 +72,23 @@ public enum TileType {
         PlayerType.NAVIGATOR.setSpawn(GOLD_GATE);
     }
 
+    TileType(String formalName) {
+        this.formalName = formalName;
+        spawn = null;
+    }
+
+    @Contract(pure = true)
+    @Override
+    public @NotNull String toString() {
+        return "[" + name() + ",o=" + ordinal() + "]";
+    }
+
     public PlayerType getPlayerTypeSpawn() {
-        if (!spawnInvoked) initPlayersSpawns();
         return spawn;
+    }
+
+    public Tile getTile() {
+        return Board.getInstance().getTileFor(this);
     }
 
     public static Treasure getTreasure(TileType tileType) {
@@ -100,4 +100,6 @@ public enum TileType {
             default -> null;
         };
     }
+
+
 }

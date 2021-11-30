@@ -5,6 +5,8 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import dev.kason.forbidden.PlayerTypeDistributor;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,12 +16,15 @@ public class Player {
     private final String name;
     private final List<Card> cards;
 
+    public Player(String name) {
+        this(name, PlayerTypeDistributor.getNextPlayerType());
+    }
+
     public Player(String name, PlayerType type) {
         this.cards = new ArrayList<>();
         this.playerType = type;
         this.pawn = new Pawn(this);
         this.name = name;
-        PlayerManager.getPlayers().add(this);
     }
 
     public void receiveCard(Card card) {

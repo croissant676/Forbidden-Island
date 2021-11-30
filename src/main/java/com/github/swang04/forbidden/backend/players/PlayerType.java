@@ -5,8 +5,10 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import com.github.swang04.forbidden.backend.board.Tile;
 import com.github.swang04.forbidden.backend.board.TileType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public enum PlayerType {
@@ -44,7 +46,14 @@ public enum PlayerType {
 
     public List<Move> getMoves(Pawn pawn) {
         // TODO: 11/29/2021 Generic movements
+        ArrayList<Move> moves = new ArrayList<>();
+
         return null;
+    }
+
+    private void considerMovements(List<Move> moves, Pawn pawn) {
+        Tile tile = pawn.getTile();
+
     }
 
     public String getFileLocation() {

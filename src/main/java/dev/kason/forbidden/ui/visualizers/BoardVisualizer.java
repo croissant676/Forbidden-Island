@@ -20,6 +20,8 @@ import com.github.swang04.forbidden.ui.Visualizer;
 import dev.kason.forbidden.logging.Log;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
+import java.awt.GridLayout;
 import java.util.logging.Logger;
 
 public class BoardVisualizer extends Visualizer<Board> {
@@ -33,7 +35,10 @@ public class BoardVisualizer extends Visualizer<Board> {
 
     @Override
     public JComponent visualize(Board board) {
-        logger.info("Hello wrodl");
-        return null;
+        JPanel panel = new JPanel();
+        GridLayout layout = new GridLayout();
+        panel.setLayout(layout);
+
+        return panel;
     }
 }
