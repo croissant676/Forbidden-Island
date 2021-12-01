@@ -10,6 +10,8 @@ import com.github.swang04.forbidden.backend.board.Tile;
 import com.github.swang04.forbidden.backend.board.TileType;
 import com.github.swang04.forbidden.backend.players.Card;
 
+import java.awt.image.BufferedImage;
+
 public class FloodCard implements Card {
 
     private final Tile tile;
@@ -26,6 +28,10 @@ public class FloodCard implements Card {
 
     public void use() {
         tile.progressFlooding();
+    }
+
+    public BufferedImage getFrontalDisplay() {
+        return tile.getTileType().getFloodCardImage();
     }
 
     public TileType getTileType() {

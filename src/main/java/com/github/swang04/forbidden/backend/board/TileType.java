@@ -43,6 +43,7 @@ public enum TileType {
     private final String formalName;
     private BufferedImage regularImage;
     private BufferedImage floodedImage;
+    private BufferedImage floodCardImage;
 
     private PlayerType spawn;
 
@@ -56,6 +57,10 @@ public enum TileType {
         loadImage();
     }
 
+    public BufferedImage getFloodCardImage() {
+        return floodCardImage;
+    }
+
     public BufferedImage getRegularImage() {
         return regularImage;
     }
@@ -64,12 +69,16 @@ public enum TileType {
         return floodedImage;
     }
 
-    public @NotNull String regFileLocation() {
+    public @NotNull String getRegularFileLocation() {
         return "dry_" + name().toLowerCase() + ".png";
     }
 
-    public @NotNull String floodFileLocation() {
+    public @NotNull String getFloodFileLocation() {
         return "flooded_" + name().toLowerCase() + ".png";
+    }
+
+    public @NotNull String getFloodCardImageFileLocation() {
+        return "flood_card_" + name().toLowerCase() + ".png";
     }
 
     static {
@@ -89,8 +98,9 @@ public enum TileType {
 
     private void loadImage() {
         try {
-            regularImage = ImageStorage.retrieveImage(regFileLocation());
-            floodedImage = ImageStorage.retrieveImage(floodFileLocation());
+            regularImage = ImageStorage.retrieveImage(getRegularFileLocation());
+            floodedImage = ImageStorage.retrieveImage(getFloodFileLocation());
+            floodCardImage = ImageStorage.retrieveImage(getFloodCardImageFileLocation());
         } catch (Exception exception) {
             System.out.println(formalName + " no image :(");
             exception.printStackTrace();

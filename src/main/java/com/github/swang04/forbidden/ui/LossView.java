@@ -23,8 +23,8 @@ public class LossView extends View {
         super("You lost!", "Lost");
     }
 
-    public static void init() {
-        logger.info("Initialized Loss View! Name = " + view.getName());
+    public static LossView getInstance() {
+        return view;
     }
 
     @Override

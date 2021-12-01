@@ -17,8 +17,9 @@ public class PlayerManager {
 
     private static PlayerManager instance;
     private static int number = 0;
-    private final Set<Player> players = new HashSet<>();
     private static final Logger logger = Log.logger();
+
+    private final Set<Player> players = new HashSet<>();
     private final TreasureDeck deck = new TreasureDeck();
 
     private Iterator<Player> playerIterator;
@@ -31,7 +32,14 @@ public class PlayerManager {
     }
 
     private void givePlayersInitialCards() {
+        for (Player player : players) {
+            player.receiveCard(deck.popTopCard());
+            player.receiveCard(deck.popTopCard());
+        }
+    }
 
+    public TreasureDeck getDeck() {
+        return deck;
     }
 
     public Player getTurn() {

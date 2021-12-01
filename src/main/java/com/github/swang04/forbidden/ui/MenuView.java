@@ -33,7 +33,7 @@ public class MenuView extends View {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    public static MenuView init() {
+    public static MenuView getInstance() {
         return view;
     }
 

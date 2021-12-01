@@ -10,6 +10,8 @@ import com.github.swang04.forbidden.backend.board.PawnManager;
 import com.github.swang04.forbidden.backend.board.WaterMeter;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
+import com.github.swang04.forbidden.ui.LossView;
+import dev.kason.forbidden.ui.ViewManager;
 
 import java.util.Random;
 
@@ -63,6 +65,10 @@ public class Game {
 
     public static void setGame(Game game) {
         Game.game = game;
+    }
+
+    public void gameLost() {
+        ViewManager.display(LossView.getInstance());
     }
 
     @Override

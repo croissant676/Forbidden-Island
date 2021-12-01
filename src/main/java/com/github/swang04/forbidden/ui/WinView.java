@@ -32,7 +32,7 @@ public class WinView extends View {
         winText.setFont(new Font("Serif", Font.BOLD, 70));
         panel.add(winText);
         panel.setSize(900, 800);
-        ViewManager.display(MenuView.init());
+        ViewManager.display(MenuView.getInstance());
         return panel;
     }
 }
