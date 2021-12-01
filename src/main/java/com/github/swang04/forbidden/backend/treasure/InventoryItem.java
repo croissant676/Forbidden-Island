@@ -11,4 +11,6 @@ public interface InventoryItem {
 
     Player getHolder();
 
+    void setHolder(Player player);
+
 }

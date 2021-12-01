@@ -5,14 +5,17 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
-public abstract class Deck<T extends Card> implements Iterable<T> {
+public class Deck<T extends Card> implements Iterable<T> {
 
     protected ArrayDeque<T> deque;
 
@@ -67,5 +70,11 @@ public abstract class Deck<T extends Card> implements Iterable<T> {
     @Override
     public String toString() {
         return deque.toString();
+    }
+
+    @NotNull
+    @Override
+    public Iterator<T> iterator() {
+        return deque.iterator();
     }
 }

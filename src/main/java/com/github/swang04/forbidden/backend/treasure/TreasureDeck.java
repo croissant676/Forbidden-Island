@@ -7,7 +7,7 @@ package com.github.swang04.forbidden.backend.treasure;
 
 import com.github.swang04.forbidden.backend.players.Deck;
 
-public abstract class TreasureDeck extends Deck<TreasureDeckCard> {
+public class TreasureDeck extends Deck<TreasureDeckCard> {
 
 
 }

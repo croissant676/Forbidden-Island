@@ -6,7 +6,7 @@
 package com.github.swang04.forbidden.backend.board;
 
 import com.github.swang04.forbidden.backend.treasure.FloodDeck;
-import dev.kason.forbidden.logging.Log;
+import dev.kason.forbidden.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,14 +21,15 @@ public class Board {
     private static Board instance;
     private final Tile[][] tiles;
     private Map<TileType, Tile> tileTypeTileMap = null;
-
+    private final WaterMeter waterMeter;
     private FloodDeck floodDeck;
 
     private static final Logger logger = Log.logger();
 
-    private Board(int seed) {
+    private Board(int seed, int waterMeter) {
         logger.info("Created board!");
         instance = this;
+        this.waterMeter = new WaterMeter(waterMeter);
         tiles = new Tile[6][6];
         List<TileType> tileTypeList = new ArrayList<>(List.of(TileType.values()));
         Collections.shuffle(tileTypeList, new Random(seed));
@@ -51,7 +52,11 @@ public class Board {
     }
 
     public static Board create(int seed) {
-        return new Board(seed);
+        return new Board(seed, WaterMeter.NOVICE);
+    }
+
+    public static Board create(int seed, int waterLevel) {
+        return new Board(seed, waterLevel);
     }
 
     public Tile getTileAt(int x, int y) {

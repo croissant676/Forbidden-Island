@@ -10,7 +10,12 @@ import com.github.swang04.forbidden.backend.players.Player;
 // TDC that isn't special: Just a treasure card - Sandbags, Heli-Lifts, and Waters Rises
 public class TreasureCard implements TreasureDeckCard {
 
-    private Treasure representingTreasure;
+    private final Treasure representingTreasure;
+    private Player holdingPlayer;
+
+    public TreasureCard(Treasure representingTreasure) {
+        this.representingTreasure = representingTreasure;
+    }
 
     @Override
     public void onDraw(Player player) {
@@ -19,5 +24,15 @@ public class TreasureCard implements TreasureDeckCard {
 
     public Treasure getRepresentingTreasure() {
         return representingTreasure;
+    }
+
+    @Override
+    public Player getHolder() {
+        return holdingPlayer;
+    }
+
+    @Override
+    public void setHolder(Player player) {
+
     }
 }

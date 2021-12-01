@@ -17,7 +17,6 @@ public class Game {
     private static Game game = new Game();
 
     private Board board;
-    private final WaterMeter waterMeter;
     private final Random random;
     private final PlayerManager playerManager;
     private final PawnManager pawnManager;
@@ -28,15 +27,10 @@ public class Game {
     }
 
     public Game(int seed, int waterSettings, String... names) {
-        board = Board.create(seed);
+        board = Board.create(seed, waterSettings);
         playerManager = new PlayerManager(names);
-        waterMeter = new WaterMeter(waterSettings);
         random = new Random(seed);
         pawnManager = new PawnManager(this);
-    }
-
-    public WaterMeter getWaterMeter() {
-        return waterMeter;
     }
 
     public Board getBoard() {

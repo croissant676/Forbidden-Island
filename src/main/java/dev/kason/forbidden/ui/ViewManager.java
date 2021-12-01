@@ -6,7 +6,7 @@
 package dev.kason.forbidden.ui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import dev.kason.forbidden.logging.Log;
+import dev.kason.forbidden.Log;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.JComponent;

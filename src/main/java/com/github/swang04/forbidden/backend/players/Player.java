@@ -5,6 +5,8 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import com.github.swang04.forbidden.backend.treasure.InventoryItem;
+import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
 import dev.kason.forbidden.PlayerTypeDistributor;
 
 import java.util.ArrayList;
@@ -14,21 +16,21 @@ public class Player {
     private final Pawn pawn;
     private final PlayerType playerType;
     private final String name;
-    private final List<Card> cards;
+    private final List<InventoryItem> inventoryItems;
 
     public Player(String name) {
         this(name, PlayerTypeDistributor.getNextPlayerType());
     }
 
     public Player(String name, PlayerType type) {
-        this.cards = new ArrayList<>();
+        this.inventoryItems = new ArrayList<>();
         this.playerType = type;
         this.pawn = new Pawn(this);
         this.name = name;
     }
 
-    public void receiveCard(Card card) {
-        cards.add(card);
+    public void receiveCard(TreasureDeckCard card) {
+        inventoryItems.add(card);
     }
 
     public Pawn getPawn() {
@@ -43,8 +45,8 @@ public class Player {
         return playerType;
     }
 
-    public List<Card> getCards() {
-        return cards;
+    public List<InventoryItem> getInventoryItems() {
+        return inventoryItems;
     }
 
     public List<Move> getMoves() {
@@ -57,7 +59,7 @@ public class Player {
                 "pawn=" + pawn +
                 ", playerType=" + playerType +
                 ", name='" + name + '\'' +
-                ", cards=" + cards +
+                ", cards=" + inventoryItems +
                 '}';
     }
 }

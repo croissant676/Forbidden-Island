@@ -9,7 +9,7 @@ import com.github.swang04.forbidden.backend.players.Card;
 import com.github.swang04.forbidden.backend.players.Player;
 
 // Just an interface to represent a card that will be in a treasure deck
-public interface TreasureDeckCard extends Card {
+public interface TreasureDeckCard extends Card, InventoryItem {
 
     void onDraw(Player player);
 

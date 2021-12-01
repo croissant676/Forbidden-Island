@@ -24,6 +24,10 @@ public class FloodCard implements Card {
         return tile;
     }
 
+    public void use() {
+        tile.progressFlooding();
+    }
+
     public TileType getTileType() {
         return tile.getTileType();
     }

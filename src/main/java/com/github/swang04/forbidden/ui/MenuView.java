@@ -6,7 +6,7 @@
 package com.github.swang04.forbidden.ui;
 
 import dev.kason.forbidden.ImageStorage;
-import dev.kason.forbidden.logging.Log;
+import dev.kason.forbidden.Log;
 import dev.kason.forbidden.ui.View;
 import org.jetbrains.annotations.NotNull;
 

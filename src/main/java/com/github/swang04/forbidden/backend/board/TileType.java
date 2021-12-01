@@ -7,6 +7,7 @@ package com.github.swang04.forbidden.backend.board;
 
 import com.github.swang04.forbidden.backend.players.PlayerType;
 import com.github.swang04.forbidden.backend.treasure.Treasure;
+import dev.kason.forbidden.ImageStorage;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,6 +50,12 @@ public enum TileType {
         return formalName;
     }
 
+    TileType(String formalName) {
+        this.formalName = formalName;
+        spawn = null;
+        loadImage();
+    }
+
     public BufferedImage getRegularImage() {
         return regularImage;
     }
@@ -80,9 +87,14 @@ public enum TileType {
         PlayerType.NAVIGATOR.setSpawn(GOLD_GATE);
     }
 
-    TileType(String formalName) {
-        this.formalName = formalName;
-        spawn = null;
+    private void loadImage() {
+        try {
+            regularImage = ImageStorage.retrieveImage(regFileLocation());
+            floodedImage = ImageStorage.retrieveImage(floodFileLocation());
+        } catch (Exception exception) {
+            System.out.println(formalName + " no image :(");
+            exception.printStackTrace();
+        }
     }
 
     @Contract(pure = true)

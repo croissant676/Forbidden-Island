@@ -6,7 +6,7 @@
 package com.github.swang04.forbidden.backend.board;
 
 import com.github.swang04.forbidden.backend.treasure.Treasure;
-import dev.kason.forbidden.logging.Log;
+import dev.kason.forbidden.Log;
 
 import java.util.Objects;
 import java.util.logging.Logger;

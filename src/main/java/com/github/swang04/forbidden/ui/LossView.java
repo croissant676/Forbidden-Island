@@ -5,7 +5,7 @@
 
 package com.github.swang04.forbidden.ui;
 
-import dev.kason.forbidden.logging.Log;
+import dev.kason.forbidden.Log;
 import dev.kason.forbidden.ui.View;
 
 import javax.swing.JComponent;

@@ -6,7 +6,8 @@
 package com.github.swang04.forbidden.backend.players;
 
 import com.github.swang04.forbidden.backend.board.Tile;
-import dev.kason.forbidden.logging.Log;
+import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
+import dev.kason.forbidden.Log;
 
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -102,12 +103,12 @@ public interface Move {
         private Player giver;
         private Player receiver;
 
-        private Card card;
+        private TreasureDeckCard TreasureDeckCard;
 
-        public Trade(Player giver, Player receiver, Card card) {
+        public Trade(Player giver, Player receiver, TreasureDeckCard TreasureDeckCard) {
             this.giver = giver;
             this.receiver = receiver;
-            this.card = card;
+            this.TreasureDeckCard = TreasureDeckCard;
         }
 
         public Player getGiver() {
@@ -126,31 +127,31 @@ public interface Move {
             this.receiver = receiver;
         }
 
-        public Card getCard() {
-            return card;
+        public TreasureDeckCard getTreasureDeckCard() {
+            return TreasureDeckCard;
         }
 
-        public void setCard(Card card) {
-            this.card = card;
+        public void setTreasureDeckCard(com.github.swang04.forbidden.backend.treasure.TreasureDeckCard TreasureDeckCard) {
+            this.TreasureDeckCard = TreasureDeckCard;
         }
 
         @Override
         public void apply() {
             super.apply();
-            giver.getCards().remove(card);
-            receiver.receiveCard(card);
+            giver.getInventoryItems().remove(TreasureDeckCard);
+            receiver.receiveCard(TreasureDeckCard);
         }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (!(o instanceof Trade trade)) return false;
-            return Objects.equals(giver, trade.giver) && Objects.equals(receiver, trade.receiver) && Objects.equals(card, trade.card);
+            return Objects.equals(giver, trade.giver) && Objects.equals(receiver, trade.receiver) && Objects.equals(TreasureDeckCard, trade.TreasureDeckCard);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(giver, receiver, card);
+            return Objects.hash(giver, receiver, TreasureDeckCard);
         }
 
         @Override
@@ -158,7 +159,7 @@ public interface Move {
             return "Trade{" +
                     "giver=" + giver +
                     ", receiver=" + receiver +
-                    ", card=" + card +
+                    ", TreasureDeckCard=" + TreasureDeckCard +
                     '}';
         }
     }

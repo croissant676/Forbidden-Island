@@ -13,19 +13,34 @@ import java.util.List;
 
 public enum PlayerType {
     EXPLORER {
-
+        @Override
+        public List<Move> getMoves(Pawn pawn) {
+            return super.getMoves(pawn);
+        }
     },
     DIVER {
-
+        @Override
+        public List<Move> getMoves(Pawn pawn) {
+            return super.getMoves(pawn);
+        }
     },
     PILOT {
-
+        @Override
+        public List<Move> getMoves(Pawn pawn) {
+            return super.getMoves(pawn);
+        }
     },
     ENGINEER {
-
+        @Override
+        public List<Move> getMoves(Pawn pawn) {
+            return super.getMoves(pawn);
+        }
     },
     MESSENGER {
-
+        @Override
+        public List<Move> getMoves(Pawn pawn) {
+            return super.getMoves(pawn);
+        }
     },
     NAVIGATOR {
         @Override
@@ -45,10 +60,9 @@ public enum PlayerType {
     }
 
     public List<Move> getMoves(Pawn pawn) {
-        // TODO: 11/29/2021 Generic movements
         ArrayList<Move> moves = new ArrayList<>();
-
-        return null;
+        considerMovements(moves, pawn);
+        return moves;
     }
 
     private void considerMovements(List<Move> moves, Pawn pawn) {

@@ -5,9 +5,10 @@
 
 package com.github.swang04.forbidden.backend.players;
 
-import dev.kason.forbidden.logging.Log;
+import dev.kason.forbidden.Log;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -18,9 +19,19 @@ public class PlayerManager {
     private final Set<Player> players = new HashSet<>();
     private static final Logger logger = Log.logger();
 
+    private Iterator<Player> playerIterator;
+
     public PlayerManager(String... playerNames) {
         instance = this;
         createPlayers(playerNames);
+        playerIterator = players.iterator();
+    }
+
+    public Player getTurn() {
+        if (!playerIterator.hasNext()) {
+            playerIterator = players.iterator();
+        }
+        return playerIterator.next();
     }
 
     public static Player generateTestPlayer() {
