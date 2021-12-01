@@ -66,6 +66,10 @@ public class ViewManager {
             logger.info("Added frame: " + view.getName());
             return;
         }
+        if (currentView != null) {
+            mainFrame.removeAll();
+            mainFrame.revalidate();
+        }
         currentView = view;
         mainFrame.add(currentView.getDisplay());
         mainFrame.setTitle(view.getTitle());

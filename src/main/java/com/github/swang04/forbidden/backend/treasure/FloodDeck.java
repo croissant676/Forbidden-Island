@@ -5,8 +5,11 @@
 
 package com.github.swang04.forbidden.backend.treasure;
 
-import com.github.swang04.forbidden.backend.board.Board;
+import com.github.swang04.forbidden.backend.board.TileType;
 import com.github.swang04.forbidden.backend.players.Deck;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FloodDeck extends Deck<FloodCard> {
 
@@ -16,12 +19,14 @@ public class FloodDeck extends Deck<FloodCard> {
         return floodDeck;
     }
 
-    private final Board board;
+    private final List<FloodCard> floodCards;
 
     public FloodDeck() {
         super();
         floodDeck = this;
-        this.board = Board.getInstance();
+        this.floodCards = new ArrayList<>();
+        initializeFloodDeck();
+        flood(6);
     }
 
 

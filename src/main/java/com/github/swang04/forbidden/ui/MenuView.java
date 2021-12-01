@@ -8,6 +8,7 @@ package com.github.swang04.forbidden.ui;
 import dev.kason.forbidden.ImageStorage;
 import dev.kason.forbidden.Log;
 import dev.kason.forbidden.ui.View;
+import dev.kason.forbidden.ui.ViewManager;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.ImageIcon;
@@ -31,7 +32,6 @@ public class MenuView extends View {
         super("Menu");
     }
 
-
     @SuppressWarnings("UnusedReturnValue")
     public static MenuView init() {
         return view;
@@ -40,8 +40,7 @@ public class MenuView extends View {
     @Override
     public @NotNull JComponent getDisplay() {
         if (bufferedImage == null) {
-            bufferedImage = ImageStorage.retrieveImage("menu_background.jpg");
-            System.out.println(bufferedImage);
+            bufferedImage = ImageStorage.retrieveImage("regular_background.png");
         }
         JPanel menu = new JPanel();
         menu.setSize(500, 500);

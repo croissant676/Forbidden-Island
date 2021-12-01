@@ -64,11 +64,11 @@ public enum TileType {
         return floodedImage;
     }
 
-    public String regFileLocation() {
+    public @NotNull String regFileLocation() {
         return "dry_" + name().toLowerCase() + ".png";
     }
 
-    public String floodFileLocation() {
+    public @NotNull String floodFileLocation() {
         return "flooded_" + name().toLowerCase() + ".png";
     }
 

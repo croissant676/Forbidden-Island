@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+
     private final Pawn pawn;
     private final PlayerType playerType;
     private final String name;

@@ -22,7 +22,7 @@ public class Board {
     private final Tile[][] tiles;
     private Map<TileType, Tile> tileTypeTileMap = null;
     private final WaterMeter waterMeter;
-    private FloodDeck floodDeck;
+    private final FloodDeck floodDeck;
 
     private static final Logger logger = Log.logger();
 
@@ -41,6 +41,11 @@ public class Board {
                 tiles[row][col] = new Tile(row, col, tileTypeList.get(count++));
             }
         }
+        floodDeck = new FloodDeck();
+    }
+
+    public WaterMeter getWaterMeter() {
+        return waterMeter;
     }
 
     public static Board getInstance() {

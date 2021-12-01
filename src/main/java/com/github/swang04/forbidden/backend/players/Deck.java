@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Deck<T extends Card> implements Iterable<T> {
 
-    protected ArrayDeque<T> deque;
+    protected ArrayDeque<T> deque = new ArrayDeque<>();
 
     public T getTopCard() {
         return deque.peek();

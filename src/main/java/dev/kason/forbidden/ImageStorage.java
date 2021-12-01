@@ -16,6 +16,7 @@
 package dev.kason.forbidden;
 
 import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
@@ -33,7 +34,7 @@ public class ImageStorage {
 
     Map<String, BufferedImage> images = new HashMap<>();
 
-    public static @Nullable BufferedImage retrieveImage(String str) {
+    public static @Nullable BufferedImage retrieveImage(@NotNull String str) {
         if (!str.contains(".")) {
             str = str + ".png";
         }

@@ -25,6 +25,11 @@ public class PlayerManager {
         instance = this;
         createPlayers(playerNames);
         playerIterator = players.iterator();
+        givePlayersInitialCards();
+    }
+
+    private void givePlayersInitialCards() {
+
     }
 
     public Player getTurn() {
