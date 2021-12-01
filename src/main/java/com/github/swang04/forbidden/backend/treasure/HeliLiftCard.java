@@ -22,4 +22,10 @@ public class HeliLiftCard implements TreasureDeckCard {
     public void onDraw(Player player) {
 
     }
+
+
+    @Override
+    public String toString() {
+        return "Heli-lift";
+    }
 }

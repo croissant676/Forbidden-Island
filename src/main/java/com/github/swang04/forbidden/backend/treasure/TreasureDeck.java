@@ -22,8 +22,14 @@ public class TreasureDeck extends Deck<TreasureDeckCard> {
             addCard(new HeliLiftCard());
         }
         for (int count = 0; count < 3; count++) {
-
+            addCard(new WatersRiseCard());
         }
+        for (Treasure value : Treasure.values()) {
+            for (int count = 0; count < 5; count++) {
+                addCard(new TreasureCard(value));
+            }
+        }
+        shuffle();
     }
 
 }

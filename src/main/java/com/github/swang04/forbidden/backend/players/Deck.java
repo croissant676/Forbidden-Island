@@ -70,7 +70,11 @@ public class Deck<T extends Card> implements Iterable<T> {
 
     @Override
     public String toString() {
-        return deque.toString();
+        StringBuilder builder = new StringBuilder();
+        for (T t : deque) {
+            builder.append(t).append("\n");
+        }
+        return builder.toString();
     }
 
     @NotNull

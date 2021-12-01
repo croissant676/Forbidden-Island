@@ -12,6 +12,7 @@ import com.github.swang04.forbidden.backend.players.Player;
 public class SandbagsCard implements TreasureDeckCard {
 
     private Player player;
+    private boolean used = false;
 
     @Override
     public Player getHolder() {
@@ -31,10 +32,17 @@ public class SandbagsCard implements TreasureDeckCard {
     }
 
     public void applyAction(Tile tile) {
+        if (used) return;
+        used = true;
         if (tile.getTileState() == TileState.SUNK) {
             tile.setTileState(TileState.FLOODED);
         } else {
             tile.setTileState(TileState.DRY);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Sandbags";
     }
 }

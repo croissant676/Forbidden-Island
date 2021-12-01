@@ -9,6 +9,7 @@ import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.board.PawnManager;
 import com.github.swang04.forbidden.backend.board.WaterMeter;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
+import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 
 import java.util.Random;
 
@@ -21,6 +22,8 @@ public class Game {
     private final PlayerManager playerManager;
     private final PawnManager pawnManager;
 
+    private final TreasureDeck treasureDeck;
+
     public Game() {
         // Only for testing purposes
         this(0, WaterMeter.NOVICE, "Bob", "Ashhsley", "Joncadence");
@@ -31,6 +34,7 @@ public class Game {
         playerManager = new PlayerManager(names);
         random = new Random(seed);
         pawnManager = new PawnManager(this);
+        this.treasureDeck = new TreasureDeck();
     }
 
     public Board getBoard() {
@@ -63,6 +67,6 @@ public class Game {
 
     @Override
     public String toString() {
-        return "Board\n" + board + "\nPlayers\n" + playerManager + "\nPawns\n" + pawnManager;
+        return "Board\n" + board + "\nPlayers\n" + playerManager + "\nPawns\n" + pawnManager + "\nCards\n" + treasureDeck;
     }
 }

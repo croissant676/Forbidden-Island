@@ -35,4 +35,9 @@ public class TreasureCard implements TreasureDeckCard {
     public void setHolder(Player player) {
 
     }
+
+    @Override
+    public String toString() {
+        return "Treasure[" + representingTreasure.name() + "]";
+    }
 }
