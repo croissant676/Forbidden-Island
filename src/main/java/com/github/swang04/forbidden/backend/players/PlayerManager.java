@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 import dev.kason.forbidden.Log;
 
 import java.util.HashSet;
@@ -18,6 +19,7 @@ public class PlayerManager {
     private static int number = 0;
     private final Set<Player> players = new HashSet<>();
     private static final Logger logger = Log.logger();
+    private final TreasureDeck deck = new TreasureDeck();
 
     private Iterator<Player> playerIterator;
 

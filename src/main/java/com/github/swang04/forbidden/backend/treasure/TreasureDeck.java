@@ -9,5 +9,21 @@ import com.github.swang04.forbidden.backend.players.Deck;
 
 public class TreasureDeck extends Deck<TreasureDeckCard> {
 
+    public TreasureDeck() {
+        super();
+        initializeTreasureDeck();
+    }
+
+    private void initializeTreasureDeck() {
+        for (int count = 0; count < 2; count++) {
+            addCard(new SandbagsCard());
+        }
+        for (int count = 0; count < 3; count++) {
+            addCard(new HeliLiftCard());
+        }
+        for (int count = 0; count < 3; count++) {
+
+        }
+    }
 
 }
