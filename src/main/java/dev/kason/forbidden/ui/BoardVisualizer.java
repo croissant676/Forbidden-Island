@@ -26,10 +26,10 @@ public class BoardVisualizer extends Visualizer<Board> {
     public static void runTest() {
         FlatDarkLaf.setup();
         JFrame frame = new JFrame();
-        frame.setSize(600, 600);
-        frame.setVisible(true);
+        frame.setSize(860, 800);
         JComponent component = GameVisualizer.getInstance().visualize(Game.getGame());
         frame.add(component);
+        frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 

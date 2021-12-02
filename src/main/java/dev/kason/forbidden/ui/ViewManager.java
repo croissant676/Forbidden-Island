@@ -6,6 +6,7 @@
 package dev.kason.forbidden.ui;
 
 import com.formdev.flatlaf.FlatDarkLaf;
+import dev.kason.forbidden.ImageStorage;
 import dev.kason.forbidden.Log;
 import org.jetbrains.annotations.NotNull;
 
@@ -55,6 +56,17 @@ public class ViewManager {
         g2.drawImage(srcImg, 0, 0, w, h, null);
         g2.dispose();
         return resizedImg;
+    }
+
+    private static BufferedImage surroundingWatersCropped;
+
+    public static BufferedImage getSurroundingWatersCropped() {
+        if (surroundingWatersCropped == null) {
+            surroundingWatersCropped = ImageStorage.retrieveImage("surrounding_waters.png");
+            surroundingWatersCropped = ViewManager.getScaledImage(surroundingWatersCropped, 100, 100);
+            surroundingWatersCropped = surroundingWatersCropped.getSubimage(5, 5, 90, 90);
+        }
+        return surroundingWatersCropped;
     }
 
     public static BoardUI getBoardUI() {

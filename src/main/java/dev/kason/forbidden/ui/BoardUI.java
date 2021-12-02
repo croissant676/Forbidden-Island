@@ -7,7 +7,6 @@ package dev.kason.forbidden.ui;
 
 import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.board.Tile;
-import dev.kason.forbidden.ImageStorage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -15,6 +14,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 // 3 ways to get this
@@ -23,7 +23,6 @@ import java.awt.image.BufferedImage;
 // BoardVisualizer.getInstance().getBoardUI()
 public class BoardUI {
 
-    private static final Color buttonBackgroundColor = new Color(78, 84, 84);
     private static BoardUI ui;
     private final JButton[][] buttons;
     private final JPanel mergedPanel;
@@ -40,6 +39,7 @@ public class BoardUI {
             for (int col = 0; col < 6; col++) {
                 JButton button = new JButton();
                 buttons[row][col] = button;
+                button.setSize(100, 100);
                 mergedPanel.add(button);
             }
         }
@@ -67,37 +67,33 @@ public class BoardUI {
                     switch (tile.getTileState()) {
                         case DRY -> {
                             BufferedImage regularImage = tile.getTileType().getRegularImage();
-                            regularImage = ViewManager.getScaledImage(regularImage, 100, 100);
                             ImageIcon icon = new ImageIcon(regularImage);
                             button.setIcon(icon);
                         }
                         case FLOODED -> {
                             BufferedImage regularImage = tile.getTileType().getFloodedImage();
-                            regularImage = ViewManager.getScaledImage(regularImage, 100, 100);
                             ImageIcon icon = new ImageIcon(regularImage);
                             button.setIcon(icon);
                         }
                         case SUNK -> {
-                            BufferedImage regularImage = ImageStorage.retrieveImage("surrounding_waters.png");
-                            regularImage = ViewManager.getScaledImage(regularImage, 100, 100);
-                            ImageIcon icon = new ImageIcon(regularImage);
+                            ImageIcon icon = new ImageIcon(ViewManager.getSurroundingWatersCropped());
                             button.setIcon(icon);
                         }
                     }
                 } else {
-                    BufferedImage regularImage = ImageStorage.retrieveImage("surrounding_waters.png");
-                    regularImage = ViewManager.getScaledImage(regularImage, 100, 100);
-                    ImageIcon icon = new ImageIcon(regularImage);
+                    ImageIcon icon = new ImageIcon(ViewManager.getSurroundingWatersCropped());
                     button.setIcon(icon);
                 }
                 button.setBorder(null);
                 button.addMouseListener(new MouseAdapter() {
-                    public void mouseEntered(java.awt.event.MouseEvent evt) {
+                    @Override
+                    public void mouseEntered(MouseEvent evt) {
                         button.setBackground(Color.GRAY);
                     }
 
-                    public void mouseExited(java.awt.event.MouseEvent evt) {
-                        button.setBackground(buttonBackgroundColor);
+                    @Override
+                    public void mouseExited(MouseEvent evt) {
+
                     }
                 });
             }

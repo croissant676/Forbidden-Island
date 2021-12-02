@@ -8,6 +8,7 @@ package com.github.swang04.forbidden.backend.board;
 import com.github.swang04.forbidden.backend.players.PlayerType;
 import com.github.swang04.forbidden.backend.treasure.Treasure;
 import dev.kason.forbidden.ImageStorage;
+import dev.kason.forbidden.ui.ViewManager;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -98,8 +99,8 @@ public enum TileType {
 
     private void loadImage() {
         try {
-            regularImage = ImageStorage.retrieveImage(getRegularFileLocation());
-            floodedImage = ImageStorage.retrieveImage(getFloodFileLocation());
+            floodedImage = ViewManager.getScaledImage(ImageStorage.retrieveImage(getFloodFileLocation()), 100, 100).getSubimage(5, 5, 90, 90);
+            regularImage = ViewManager.getScaledImage(ImageStorage.retrieveImage(getRegularFileLocation()), 100, 100).getSubimage(5, 5, 90, 90);
             floodCardImage = ImageStorage.retrieveImage(getFloodCardImageFileLocation());
         } catch (Exception exception) {
             System.out.println(formalName + " no image :(");

@@ -12,6 +12,7 @@ import dev.kason.forbidden.ImageStorage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import java.awt.image.BufferedImage;
 import java.util.Objects;
 
 public class FloodDeckVisualizer extends Visualizer<FloodDeck> {
@@ -27,7 +28,9 @@ public class FloodDeckVisualizer extends Visualizer<FloodDeck> {
 
     @Override
     public JComponent visualize(FloodDeck object) {
-        JButton button = new JButton(new ImageIcon(Objects.requireNonNull(ImageStorage.retrieveImage("flood_card_top.png"))));
+        BufferedImage bufferedImage = ImageStorage.retrieveImage("flood_card_back.png");
+        bufferedImage = ViewManager.getScaledImage(bufferedImage, 70, 100);
+        JButton button = new JButton(new ImageIcon(Objects.requireNonNull(bufferedImage)));
         button.addActionListener(e -> {
             object.floodTopCard();
             BoardUI.getInstance().updateTilesOnly();

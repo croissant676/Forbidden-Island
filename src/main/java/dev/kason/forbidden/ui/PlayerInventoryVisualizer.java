@@ -12,28 +12,44 @@ import com.github.swang04.forbidden.ui.Visualizer;
 import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
+import java.awt.Color;
 import java.util.List;
 
-public class HorizontalPlayerVisualizer extends Visualizer<Player> {
+public class PlayerInventoryVisualizer extends Visualizer<Player> {
 
-    private static final HorizontalPlayerVisualizer visualizer = new HorizontalPlayerVisualizer();
+    private static final PlayerInventoryVisualizer horizontal = new PlayerInventoryVisualizer(BoxLayout.X_AXIS);
+    private static final PlayerInventoryVisualizer vertical = new PlayerInventoryVisualizer(BoxLayout.Y_AXIS);
     private final InventoryItemVisualizer inventoryItemVisualizer = InventoryItemVisualizer.getInstance();
+    private final int value;
 
-    public static HorizontalPlayerVisualizer getInstance() {
-        return visualizer;
+    public PlayerInventoryVisualizer(int value) {
+        this.value = value;
+    }
+
+    public static PlayerInventoryVisualizer getVertical() {
+        return vertical;
+    }
+
+    public static PlayerInventoryVisualizer getHorizontal() {
+        return horizontal;
+    }
+
+    public InventoryItemVisualizer getInventoryItemVisualizer() {
+        return inventoryItemVisualizer;
     }
 
     @Override
     public JComponent visualize(Player object) {
         List<InventoryItem> items = object.getInventoryItems();
-        JPanel wrapper = new JPanel();
         JPanel panel = new JPanel();
-        BoxLayout horizontal = new BoxLayout(panel, BoxLayout.X_AXIS);
+        BoxLayout horizontal = new BoxLayout(panel, value);
         panel.setLayout(horizontal);
         for (InventoryItem item : items) {
             panel.add(inventoryItemVisualizer.visualize(item));
         }
-        wrapper.add(panel);
+        panel.setAlignmentX(0.5f);
+        panel.setAlignmentY(0.5f);
+        panel.setBackground(Color.GRAY);
         return panel;
     }
 

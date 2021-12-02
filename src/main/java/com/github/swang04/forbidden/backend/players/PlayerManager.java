@@ -7,6 +7,8 @@ package com.github.swang04.forbidden.backend.players;
 
 import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 import dev.kason.forbidden.Log;
+import org.jetbrains.annotations.Contract;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -42,18 +44,25 @@ public class PlayerManager {
         return deck;
     }
 
-    public Player getTurn() {
-        if (!playerIterator.hasNext()) {
-            playerIterator = players.iterator();
-        }
-        return playerIterator.next();
-    }
+    private Player currentPlayer;
 
-    public static Player generateTestPlayer() {
+    @Contract(" -> new")
+    public static @NotNull Player generateTestPlayer() {
         return new Player("Test:" + number++);
     }
 
-    public void createPlayers(String... playerNames) {
+    public Player nextTurn() {
+        if (!playerIterator.hasNext()) {
+            playerIterator = players.iterator();
+        }
+        return currentPlayer = playerIterator.next();
+    }
+
+    public Player getCurrentPlayerTurn() {
+        return currentPlayer;
+    }
+
+    public void createPlayers(String @NotNull ... playerNames) {
         for (String playerName : playerNames) {
             Player player = new Player(playerName);
             logger.info(player.toString());

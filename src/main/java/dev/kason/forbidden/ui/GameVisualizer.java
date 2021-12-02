@@ -5,7 +5,6 @@
 
 package dev.kason.forbidden.ui;
 
-import com.formdev.flatlaf.ui.FlatBorder;
 import com.github.swang04.forbidden.backend.Game;
 import com.github.swang04.forbidden.backend.players.Player;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
@@ -22,8 +21,10 @@ public class GameVisualizer extends Visualizer<Game> {
     private final BoardUI boardUI = BoardUI.getInstance();
     private final BoardVisualizer visualizer = BoardVisualizer.getVisualizer();
     private final FloodDeckVisualizer floodDeckVisualizer = FloodDeckVisualizer.getInstance();
-    private final Visualizer<Player> horizontal = HorizontalPlayerVisualizer.getInstance();
-    private final Visualizer<Player> vertical = VerticalPlayerVisualizer.getInstance();
+    private final PlayerInventoryVisualizer horizontal = PlayerInventoryVisualizer.getHorizontal();
+    private final PlayerInventoryVisualizer vertical = PlayerInventoryVisualizer.getVertical();
+    private JPanel gameWrapper;
+    private JPanel gameBase;
 
     public static GameVisualizer getInstance() {
         return gameVisualizer;
@@ -33,14 +34,21 @@ public class GameVisualizer extends Visualizer<Game> {
         return boardUI;
     }
 
+    public JPanel getGameWrapper() {
+        return gameWrapper;
+    }
+
+    public JPanel getGameBase() {
+        return gameBase;
+    }
+
     @Override
     public JComponent visualize(Game object) {
-        JPanel panel = new JPanel();
+        gameWrapper = new JPanel();
+        gameBase = new JPanel();
         BorderLayout layout = new BorderLayout();
-        panel.setLayout(layout);
-        panel.add(boardUI.getDisplay(), BorderLayout.CENTER);
-        JPanel bottom = new JPanel();
-        bottom.add(floodDeckVisualizer.visualize(object.getBoard().getFloodDeck()));
+        gameBase.setLayout(layout);
+        gameBase.add(boardUI.getDisplay(), BorderLayout.CENTER);
         Set<Player> playerSet = PlayerManager.getInstance().getPlayers();
         int index = 0;
         for (Player player : playerSet) {
@@ -52,25 +60,19 @@ public class GameVisualizer extends Visualizer<Game> {
                 component = vertical.visualize(player);
             }
             panel1.add(component);
-            panel1.setAlignmentX(0.5f);
-            panel1.setAlignmentY(0.5f);
             Object value = switch (index) {
-                case 1 -> BorderLayout.NORTH;
-                case 2 -> BorderLayout.WEST;
-                case 3 -> BorderLayout.EAST;
-                case 4 -> BorderLayout.SOUTH;
+                case 1 -> BorderLayout.PAGE_START;
+                case 2 -> BorderLayout.LINE_START;
+                case 4 -> BorderLayout.LINE_END;
+                case 3 -> BorderLayout.PAGE_END;
                 default -> throw new IllegalStateException("More than 4 players: index = " + index);
             };
-            if (index == 4) {
-                bottom.add(component);
-            } else {
-                panel.add(panel1, value);
-            }
+            gameBase.add(panel1, value);
         }
-        bottom.setBorder(new FlatBorder());
-        panel.add(bottom, BorderLayout.SOUTH);
-        panel.repaint();
-        return panel;
+        gameWrapper.add(floodDeckVisualizer.visualize(object.getBoard().getFloodDeck()));
+        gameWrapper.add(gameBase);
+        gameBase.repaint();
+        return gameWrapper;
     }
 
 }
