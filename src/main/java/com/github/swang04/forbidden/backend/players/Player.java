@@ -11,6 +11,7 @@ import dev.kason.forbidden.PlayerTypeDistributor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Player {
 
@@ -62,5 +63,17 @@ public class Player {
                 ", name='" + name + '\'' +
                 ", cards=" + inventoryItems +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Player player)) return false;
+        return Objects.equals(pawn, player.pawn) && playerType == player.playerType && Objects.equals(name, player.name) && Objects.equals(inventoryItems, player.inventoryItems);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pawn, playerType, name, inventoryItems);
     }
 }

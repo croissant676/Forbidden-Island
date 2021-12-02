@@ -46,4 +46,10 @@ public class FloodCard implements Card {
         return deck;
     }
 
+    @Override
+    public String toString() {
+        return "FloodCard{" +
+                "tile=" + tile.getTileType() +
+                '}';
+    }
 }

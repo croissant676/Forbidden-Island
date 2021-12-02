@@ -6,4 +6,6 @@
 package dev.kason.forbidden.ui;
 
 public class TradeVisualizer {
+
+
 }

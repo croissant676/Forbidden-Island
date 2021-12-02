@@ -6,13 +6,16 @@
 package dev.kason.forbidden.ui;
 
 import com.github.swang04.forbidden.backend.players.Player;
+import com.github.swang04.forbidden.backend.players.PlayerManager;
 import com.github.swang04.forbidden.backend.treasure.InventoryItem;
 import com.github.swang04.forbidden.ui.Visualizer;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Color;
+import java.awt.Font;
 import java.util.List;
 
 public class PlayerInventoryVisualizer extends Visualizer<Player> {
@@ -44,12 +47,25 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
         JPanel panel = new JPanel();
         BoxLayout horizontal = new BoxLayout(panel, value);
         panel.setLayout(horizontal);
+        JLabel label = new JLabel(object.getName(), JLabel.CENTER);
+        label.setFont(new Font("Arial", Font.PLAIN, 20));
+        panel.add(label);
         for (InventoryItem item : items) {
             panel.add(inventoryItemVisualizer.visualize(item));
         }
+        JButton button = new JButton("Give Card");
+        button.addActionListener((e) -> {
+            System.out.println("Calling thing for transfer to like " + object.getName());
+            Player player = PlayerManager.getInstance().getCurrentPlayerTurn();
+            if (object.equals(player)) {
+                System.out.println("Code to prevent player from trading with themselves.");
+            } else {
+                System.out.println("From " + player.getName());
+            }
+        });
+        panel.add(button);
         panel.setAlignmentX(0.5f);
         panel.setAlignmentY(0.5f);
-        panel.setBackground(Color.GRAY);
         return panel;
     }
 

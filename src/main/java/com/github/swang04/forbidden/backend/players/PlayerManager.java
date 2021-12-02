@@ -5,7 +5,9 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import com.github.swang04.forbidden.backend.treasure.TreasureCard;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
+import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
 import dev.kason.forbidden.Log;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -35,9 +37,18 @@ public class PlayerManager {
 
     private void givePlayersInitialCards() {
         for (Player player : players) {
-            player.receiveCard(deck.popTopCard());
-            player.receiveCard(deck.popTopCard());
+            player.receiveCard(validateCard(deck.popTopCard()));
+            player.receiveCard(validateCard(deck.popTopCard()));
         }
+    }
+
+    private TreasureDeckCard validateCard(TreasureDeckCard card) {
+        if (TreasureCard.isWatersRise(card)) {
+            deck.addCard(card);
+            deck.shuffle();
+            return validateCard(deck.popTopCard());
+        }
+        return card;
     }
 
     public TreasureDeck getDeck() {
@@ -59,6 +70,7 @@ public class PlayerManager {
     }
 
     public Player getCurrentPlayerTurn() {
+        if (currentPlayer == null) currentPlayer = playerIterator.next();
         return currentPlayer;
     }
 
@@ -88,6 +100,7 @@ public class PlayerManager {
         for (Player player : players) {
             builder.append(player).append("\n");
         }
+        builder.append("It is currently ").append(getCurrentPlayerTurn().getName()).append("'s turn");
         return builder.toString();
     }
 }

@@ -73,6 +73,6 @@ public class Game {
 
     @Override
     public String toString() {
-        return "Board\n" + board + "\nPlayers\n" + playerManager + "\nPawns\n" + pawnManager + "\nCards\n" + treasureDeck;
+        return "Board\n" + board + "\nPlayers\n" + playerManager + "\nPawns\n" + pawnManager + "\nCards\n" + treasureDeck + "\nFlood Deck\n" + board.getFloodDeck();
     }
 }

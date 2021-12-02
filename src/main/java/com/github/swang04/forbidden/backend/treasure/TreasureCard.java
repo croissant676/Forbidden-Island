@@ -10,6 +10,18 @@ import com.github.swang04.forbidden.backend.players.Player;
 // TDC that isn't special: Just a treasure card - Sandbags, Heli-Lifts, and Waters Rises
 public class TreasureCard implements TreasureDeckCard {
 
+    public static boolean isSandbags(TreasureDeckCard treasureDeckCard) {
+        return treasureDeckCard instanceof SandbagsCard;
+    }
+
+    public static boolean isHeliLift(TreasureDeckCard treasureDeckCard) {
+        return treasureDeckCard instanceof HeliLiftCard;
+    }
+
+    public static boolean isWatersRise(TreasureDeckCard treasureDeckCard) {
+        return treasureDeckCard instanceof WatersRiseCard;
+    }
+
     private final Treasure representingTreasure;
     private Player holdingPlayer;
 
