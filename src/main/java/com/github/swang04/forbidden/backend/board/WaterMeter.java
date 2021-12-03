@@ -42,6 +42,10 @@ public class WaterMeter {
         };
     }
 
+    public String getFileLocationForImage() {
+        return "water_meter_" + state + ".png";
+    }
+
     public int getState() {
         return state;
     }
