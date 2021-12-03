@@ -38,16 +38,17 @@ public class TreasureCard implements TreasureDeckCard {
         return representingTreasure;
     }
 
+    private Player player;
+
     @Override
     public Player getHolder() {
-        return holdingPlayer;
+        return player;
     }
 
     @Override
     public void setHolder(Player player) {
-
+        this.player = player;
     }
-
     @Override
     public String toString() {
         return "Treasure[" + representingTreasure.name() + "]";

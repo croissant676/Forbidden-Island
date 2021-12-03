@@ -21,9 +21,7 @@ public class SandbagsCard implements TreasureDeckCard {
 
     @Override
     public void setHolder(Player player) {
-        this.player.getInventoryItems().remove(this);
         this.player = player;
-        player.receiveCard(this);
     }
 
     @Override

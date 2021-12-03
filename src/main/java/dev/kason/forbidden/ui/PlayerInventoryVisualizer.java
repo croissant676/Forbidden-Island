@@ -73,7 +73,7 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
         BoxLayout horizontal = new BoxLayout(panel, value);
         panel.setLayout(horizontal);
         JLabel label = new JLabel(object.getPlayerType().getName(), JLabel.CENTER);
-        label.setFont(new Font("Arial", Font.PLAIN, 20));
+        label.setFont(new Font("Trebuchet MS", Font.PLAIN, 30));
         wrapper.add(label);
         if (value == BoxLayout.X_AXIS) {
             wrapper.add(Box.createHorizontalStrut(10));
@@ -85,6 +85,7 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
         }
         componentMap.put(object.getName(), panel);
         JButton button = new JButton("Give Card");
+        button.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
         button.addActionListener((e) -> {
             System.out.println("Calling thing for transfer to like " + object.getName());
             Player player = PlayerManager.getInstance().getCurrentPlayer();

@@ -32,7 +32,7 @@ public class TreasureDeckVisualizer extends Visualizer<TreasureDeck> {
         JButton button = new JButton(new ImageIcon(Objects.requireNonNull(bufferedImage)));
         button.addActionListener(e -> {
             Player player = PlayerManager.getInstance().getCurrentPlayer();
-            player.receiveCard(object.popTopCard());
+            player.receiveCard(PlayerManager.getInstance().validateCard(object.popTopCard()));
             PlayerInventoryVisualizer.updateHand(player);
         });
         return button;

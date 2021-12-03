@@ -8,19 +8,21 @@ package com.github.swang04.forbidden.backend.treasure;
 import com.github.swang04.forbidden.backend.players.Player;
 
 public class HeliLiftCard implements TreasureDeckCard {
+
+    private Player player;
+
     @Override
     public Player getHolder() {
-        return null;
+        return player;
     }
 
     @Override
     public void setHolder(Player player) {
-
+        this.player = player;
     }
 
     @Override
     public void onDraw(Player player) {
-
     }
 
 

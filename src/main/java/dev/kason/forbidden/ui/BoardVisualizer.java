@@ -30,7 +30,7 @@ public class BoardVisualizer extends Visualizer<Board> {
 
     public static void createBoardUI() {
         FlatDarkLaf.setup();
-        frame = new JFrame();
+        frame = new JFrame("Forbidden Island > Game");
         frame.setSize(1300, 900);
         JComponent component = GameVisualizer.getInstance().visualize(Game.getGame());
         frame.add(component);

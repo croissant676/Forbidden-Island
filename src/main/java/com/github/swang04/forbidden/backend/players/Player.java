@@ -36,12 +36,15 @@ public class Player {
     public void receiveCard(TreasureDeckCard card) {
         if (inventoryItems.size() >= 5) {
             JOptionPane.showMessageDialog(null,
-                    "You already have 5 cards, so you cannot draw another card. Please discard or use one card."
+                    "You already have 5 cards, so you cannot draw another card. Please discard or use one card.",
+                    "Stop being greedy",
+                    JOptionPane.WARNING_MESSAGE
             );
             TreasureDeck deck = PlayerManager.getInstance().getDeck();
             deck.pushCard(card);
             return;
         }
+        card.setHolder(this);
         inventoryItems.add(card);
     }
 
