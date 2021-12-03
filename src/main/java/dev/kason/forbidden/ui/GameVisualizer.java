@@ -8,11 +8,23 @@ package dev.kason.forbidden.ui;
 import com.github.swang04.forbidden.backend.Game;
 import com.github.swang04.forbidden.backend.players.Player;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
+import com.github.swang04.forbidden.backend.treasure.InventoryItem;
 import com.github.swang04.forbidden.ui.Visualizer;
+import dev.kason.forbidden.ImageStorage;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.util.Set;
 
 public class GameVisualizer extends Visualizer<Game> {
@@ -23,8 +35,11 @@ public class GameVisualizer extends Visualizer<Game> {
     private final FloodDeckVisualizer floodDeckVisualizer = FloodDeckVisualizer.getInstance();
     private final PlayerInventoryVisualizer horizontal = PlayerInventoryVisualizer.getHorizontal();
     private final PlayerInventoryVisualizer vertical = PlayerInventoryVisualizer.getVertical();
+    private final TreasureDeckVisualizer treasureDeckVisualizer = TreasureDeckVisualizer.getInstance();
     private JPanel gameWrapper;
     private JPanel gameBase;
+    private final JPanel selectedCPanel = new JPanel();
+    private JPanel gameCardsPanel;
 
     public static GameVisualizer getInstance() {
         return gameVisualizer;
@@ -42,10 +57,44 @@ public class GameVisualizer extends Visualizer<Game> {
         return gameBase;
     }
 
+    public JPanel getGameCardsPanel() {
+        return gameCardsPanel;
+    }
+
+    public void repaintPanels() {
+        gameBase.repaint();
+        gameWrapper.repaint();
+        JFrame frame = BoardVisualizer.getFrame();
+        int width = frame.getWidth();
+        int height = frame.getHeight();
+        frame.setSize(width + 1, height);
+        frame.setSize(width, height);
+    }
+
+    public void updateSelectedItemComponent() {
+        InventoryItem currentlySelectedItem = PlayerManager.getCurrentlySelectedItem();
+        selectedCPanel.removeAll();
+        JButton component = (JButton) InventoryItemVisualizer.getInstance().visualize(currentlySelectedItem);
+        ActionListener[] actionListeners = component.getActionListeners();
+        if (actionListeners.length > 0) {
+            component.removeActionListener(actionListeners[0]);
+        }
+        selectedCPanel.add(component);
+        repaintPanels();
+    }
+
     @Override
     public JComponent visualize(Game object) {
-        gameWrapper = new JPanel();
+        final BufferedImage image = ViewManager.getScaledImage(ImageStorage.retrieveImage("table_background.png"), 1500, 1000);
+        gameWrapper = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(image, 0, 0, null);
+            }
+        };
         gameBase = new JPanel();
+        gameBase.setBackground(ViewManager.getTransparent());
         BorderLayout layout = new BorderLayout();
         gameBase.setLayout(layout);
         gameBase.add(boardUI.getDisplay(), BorderLayout.CENTER);
@@ -69,7 +118,28 @@ public class GameVisualizer extends Visualizer<Game> {
             };
             gameBase.add(panel1, value);
         }
-        gameWrapper.add(floodDeckVisualizer.visualize(object.getBoard().getFloodDeck()));
+        gameCardsPanel = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(gameCardsPanel, BoxLayout.Y_AXIS);
+        gameCardsPanel.setLayout(boxLayout);
+        gameCardsPanel.add(floodDeckVisualizer.visualize(object.getBoard().getFloodDeck()));
+        gameCardsPanel.add(Box.createVerticalStrut(10));
+        gameCardsPanel.add(treasureDeckVisualizer.visualize(object.getPlayerManager().getDeck()));
+        gameCardsPanel.add(Box.createVerticalStrut(10));
+        gameCardsPanel.setBackground(ViewManager.getTransparent());
+        JButton button = new JButton("Discard");
+        button.setFont(new Font("Trebuchet MS", Font.PLAIN, 17));
+        button.setBackground(new Color(253, 61, 31));
+        button.addActionListener((e) -> {
+            InventoryItem item = PlayerManager.getCurrentlySelectedItem();
+            if (item == null) {
+                JOptionPane.showMessageDialog(null, "No card is selected right now.");
+            }
+        });
+        button.setSize(70, 100);
+        gameWrapper.add(selectedCPanel);
+        updateSelectedItemComponent();
+        gameCardsPanel.add(button);
+        gameWrapper.add(gameCardsPanel);
         gameWrapper.add(gameBase);
         gameBase.repaint();
         return gameWrapper;

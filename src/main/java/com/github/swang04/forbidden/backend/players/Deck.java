@@ -38,6 +38,10 @@ public class Deck<T extends Card> implements Iterable<T> {
         deque.add(card);
     }
 
+    public void pushCard(T card) {
+        deque.push(card);
+    }
+
     @SafeVarargs
     public final void addCards(T... cards) {
         deque.addAll(Arrays.asList(cards));

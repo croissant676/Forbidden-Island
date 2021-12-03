@@ -5,6 +5,8 @@
 
 package dev.kason.forbidden.ui;
 
+import com.github.swang04.forbidden.backend.board.Tile;
+import com.github.swang04.forbidden.backend.treasure.FloodCard;
 import com.github.swang04.forbidden.backend.treasure.FloodDeck;
 import com.github.swang04.forbidden.ui.Visualizer;
 import dev.kason.forbidden.ImageStorage;
@@ -12,6 +14,7 @@ import dev.kason.forbidden.ImageStorage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -32,7 +35,9 @@ public class FloodDeckVisualizer extends Visualizer<FloodDeck> {
         bufferedImage = ViewManager.getScaledImage(bufferedImage, 70, 100);
         JButton button = new JButton(new ImageIcon(Objects.requireNonNull(bufferedImage)));
         button.addActionListener(e -> {
-            object.floodTopCard();
+            FloodCard card = object.floodTopCard();
+            Tile tile = card.getTile();
+            tile.setColor(Color.RED);
             BoardUI.getInstance().updateTilesOnly();
         });
         return button;

@@ -17,7 +17,7 @@ import java.util.Random;
 
 public class Game {
 
-    private static Game game = new Game();
+    private static Game game;
 
     private Board board;
     private final Random random;
@@ -28,10 +28,11 @@ public class Game {
 
     public Game() {
         // Only for testing purposes
-        this(0, WaterMeter.NOVICE, "Bob", "Ashhsley", "Joncadence");
+        this(0, WaterMeter.NOVICE, "Bob", "Ashhsley", "Joncadence", "Yayeet");
     }
 
     public Game(int seed, int waterSettings, String... names) {
+        Game.game = this;
         board = Board.create(seed, waterSettings);
         playerManager = new PlayerManager(names);
         random = new Random(seed);

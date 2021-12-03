@@ -99,8 +99,8 @@ public enum TileType {
 
     private void loadImage() {
         try {
-            floodedImage = ViewManager.getScaledImage(ImageStorage.retrieveImage(getFloodFileLocation()), 100, 100).getSubimage(5, 5, 90, 90);
-            regularImage = ViewManager.getScaledImage(ImageStorage.retrieveImage(getRegularFileLocation()), 100, 100).getSubimage(5, 5, 90, 90);
+            floodedImage = ViewManager.getScaledImage(ViewManager.getScaledImage(ImageStorage.retrieveImage(getFloodFileLocation()), 100, 100).getSubimage(5, 5, 90, 90), 100, 100);
+            regularImage = ViewManager.getScaledImage(ViewManager.getScaledImage(ImageStorage.retrieveImage(getRegularFileLocation()), 100, 100).getSubimage(5, 5, 90, 90), 100, 100);
             floodCardImage = ImageStorage.retrieveImage(getFloodCardImageFileLocation());
         } catch (Exception exception) {
             System.out.println(formalName + " no image :(");

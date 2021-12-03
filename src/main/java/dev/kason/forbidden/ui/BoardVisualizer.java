@@ -22,11 +22,16 @@ public class BoardVisualizer extends Visualizer<Board> {
     }
 
     private final BoardUI ui = new BoardUI();
+    private static JFrame frame;
 
-    public static void runTest() {
+    public static JFrame getFrame() {
+        return frame;
+    }
+
+    public static void createBoardUI() {
         FlatDarkLaf.setup();
-        JFrame frame = new JFrame();
-        frame.setSize(860, 800);
+        frame = new JFrame();
+        frame.setSize(1300, 900);
         JComponent component = GameVisualizer.getInstance().visualize(Game.getGame());
         frame.add(component);
         frame.setVisible(true);

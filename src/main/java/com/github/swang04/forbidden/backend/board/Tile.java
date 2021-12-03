@@ -7,7 +7,10 @@ package com.github.swang04.forbidden.backend.board;
 
 import com.github.swang04.forbidden.backend.treasure.Treasure;
 import dev.kason.forbidden.Log;
+import dev.kason.forbidden.ui.BoardUI;
 
+import javax.swing.JButton;
+import java.awt.Color;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -99,6 +102,14 @@ public class Tile {
 
     public Tile getRelation(int xDiff, int yDiff) {
         return Board.getInstance().getTileAt(x + xDiff, y + yDiff);
+    }
+
+    public JButton getButton() {
+        return BoardUI.getInstance().getButtonAt(x, y);
+    }
+
+    public void setColor(Color color) {
+        getButton().setBackground(color);
     }
 
     @Override

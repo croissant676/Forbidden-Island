@@ -6,9 +6,11 @@
 package com.github.swang04.forbidden.backend.players;
 
 import com.github.swang04.forbidden.backend.treasure.InventoryItem;
+import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
 import dev.kason.forbidden.PlayerTypeDistributor;
 
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +34,14 @@ public class Player {
     }
 
     public void receiveCard(TreasureDeckCard card) {
+        if (inventoryItems.size() >= 5) {
+            JOptionPane.showMessageDialog(null,
+                    "You already have 5 cards, so you cannot draw another card. Please discard or use one card."
+            );
+            TreasureDeck deck = PlayerManager.getInstance().getDeck();
+            deck.pushCard(card);
+            return;
+        }
         inventoryItems.add(card);
     }
 
@@ -47,12 +57,9 @@ public class Player {
         return playerType;
     }
 
+
     public List<InventoryItem> getInventoryItems() {
         return inventoryItems;
-    }
-
-    public List<Move> getMoves() {
-        return playerType.getMoves(pawn);
     }
 
     @Override

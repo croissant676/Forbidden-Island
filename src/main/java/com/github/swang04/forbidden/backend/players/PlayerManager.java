@@ -5,10 +5,12 @@
 
 package com.github.swang04.forbidden.backend.players;
 
+import com.github.swang04.forbidden.backend.treasure.InventoryItem;
 import com.github.swang04.forbidden.backend.treasure.TreasureCard;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
 import dev.kason.forbidden.Log;
+import dev.kason.forbidden.ui.GameVisualizer;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,14 +44,7 @@ public class PlayerManager {
         }
     }
 
-    private TreasureDeckCard validateCard(TreasureDeckCard card) {
-        if (TreasureCard.isWatersRise(card)) {
-            deck.addCard(card);
-            deck.shuffle();
-            return validateCard(deck.popTopCard());
-        }
-        return card;
-    }
+    private static InventoryItem currentlySelectedItem;
 
     public TreasureDeck getDeck() {
         return deck;
@@ -69,9 +64,11 @@ public class PlayerManager {
         return currentPlayer = playerIterator.next();
     }
 
-    public Player getCurrentPlayerTurn() {
-        if (currentPlayer == null) currentPlayer = playerIterator.next();
-        return currentPlayer;
+    public static InventoryItem getCurrentlySelectedItem() {
+        if (currentlySelectedItem == null) {
+            currentlySelectedItem = getInstance().getCurrentPlayer().getInventoryItems().get(0);
+        }
+        return currentlySelectedItem;
     }
 
     public void createPlayers(String @NotNull ... playerNames) {
@@ -94,13 +91,34 @@ public class PlayerManager {
         return players;
     }
 
+    public static void setCurrentlySelectedItem(InventoryItem currentlySelectedItem) {
+
+        PlayerManager.currentlySelectedItem = currentlySelectedItem;
+        // UI
+        GameVisualizer.getInstance().updateSelectedItemComponent();
+    }
+
+    public TreasureDeckCard validateCard(TreasureDeckCard card) {
+        if (TreasureCard.isWatersRise(card)) {
+            deck.addCard(card);
+            deck.shuffle();
+            return validateCard(deck.popTopCard());
+        }
+        return card;
+    }
+
+    public Player getCurrentPlayer() {
+        if (currentPlayer == null) currentPlayer = playerIterator.next();
+        return currentPlayer;
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
         for (Player player : players) {
             builder.append(player).append("\n");
         }
-        builder.append("It is currently ").append(getCurrentPlayerTurn().getName()).append("'s turn");
+        builder.append("It is currently ").append(getCurrentPlayer().getName()).append("'s turn");
         return builder.toString();
     }
 }

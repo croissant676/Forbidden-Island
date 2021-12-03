@@ -8,10 +8,12 @@ package dev.kason.forbidden.ui;
 import com.formdev.flatlaf.FlatDarkLaf;
 import dev.kason.forbidden.ImageStorage;
 import dev.kason.forbidden.Log;
+import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -69,6 +71,11 @@ public class ViewManager {
         return surroundingWatersCropped;
     }
 
+    @Contract(" -> new")
+    public static @NotNull Color getTransparent() {
+        return new Color(0, 0, 0, 0.0f);
+    }
+
     public static BoardUI getBoardUI() {
         return boardUI;
     }
@@ -105,6 +112,8 @@ public class ViewManager {
         if (currentView != null) {
             mainFrame.removeAll();
             mainFrame.revalidate();
+            mainFrame.setSize(mainFrame.getWidth() + 1, mainFrame.getHeight());
+            mainFrame.setSize(mainFrame.getWidth(), mainFrame.getHeight());
         }
         currentView = view;
         mainFrame.add(currentView.getDisplay());

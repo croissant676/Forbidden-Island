@@ -26,7 +26,6 @@ public class GameView extends View {
 
     @Override
     public JComponent getDisplay() {
-
         return boardVisualizer.visualize(Board.getInstance());
     }
 }

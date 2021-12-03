@@ -12,6 +12,16 @@ public class WaterMeter {
     public static final int ELITE = 2;
     public static final int LEGENDARY = 3;
 
+    public static int getStateBasedOnName(String str) {
+        return switch (str.toLowerCase()) {
+            case "novice" -> 0;
+            case "normal" -> 1;
+            case "elite" -> 2;
+            case "legendary" -> 3;
+            default -> -1;
+        };
+    }
+
     private int state;
 
     public WaterMeter(int state) {

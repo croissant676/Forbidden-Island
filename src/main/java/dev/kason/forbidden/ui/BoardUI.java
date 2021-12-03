@@ -11,10 +11,7 @@ import com.github.swang04.forbidden.backend.board.Tile;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import java.awt.Color;
 import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 // 3 ways to get this
@@ -32,14 +29,15 @@ public class BoardUI {
         buttons = new JButton[6][6];
         mergedPanel = new JPanel();
         ViewManager.setBoardUI(this);
-        GridLayout layout = new GridLayout(6, 6);
+        GridLayout layout = new GridLayout(6, 6, 5, 5);
+        mergedPanel.setBackground(ViewManager.getTransparent());
         mergedPanel.setLayout(layout);
         ui = this;
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
                 JButton button = new JButton();
                 buttons[row][col] = button;
-                button.setSize(100, 100);
+                button.setSize(110, 110);
                 mergedPanel.add(button);
             }
         }
@@ -84,18 +82,6 @@ public class BoardUI {
                     ImageIcon icon = new ImageIcon(ViewManager.getSurroundingWatersCropped());
                     button.setIcon(icon);
                 }
-                button.setBorder(null);
-                button.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseEntered(MouseEvent evt) {
-                        button.setBackground(Color.GRAY);
-                    }
-
-                    @Override
-                    public void mouseExited(MouseEvent evt) {
-
-                    }
-                });
             }
         }
     }
