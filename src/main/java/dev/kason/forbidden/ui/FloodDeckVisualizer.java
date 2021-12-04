@@ -14,7 +14,6 @@ import dev.kason.forbidden.ImageStorage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
 
@@ -37,7 +36,6 @@ public class FloodDeckVisualizer extends Visualizer<FloodDeck> {
         button.addActionListener(e -> {
             FloodCard card = object.floodTopCard();
             Tile tile = card.getTile();
-            tile.setColor(Color.RED);
             BoardUI.getInstance().updateTilesOnly();
         });
         return button;

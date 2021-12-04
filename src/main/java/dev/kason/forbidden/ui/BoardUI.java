@@ -5,14 +5,21 @@
 
 package dev.kason.forbidden.ui;
 
+import com.github.swang04.forbidden.backend.Game;
 import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.board.Tile;
+import com.github.swang04.forbidden.backend.players.Pawn;
+import dev.kason.forbidden.ImageStorage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
+import java.util.List;
 
 // 3 ways to get this
 // BoardUI.getInstance()
@@ -23,6 +30,9 @@ public class BoardUI {
     private static BoardUI ui;
     private final JButton[][] buttons;
     private final JPanel mergedPanel;
+
+    public static final int[] x = {5, 50, 5, 50};
+    public static final int[] y = {5, 5, 50, 50};
 
     // All tiles should be 100 x 100
     public BoardUI() {
@@ -39,6 +49,30 @@ public class BoardUI {
                 buttons[row][col] = button;
                 button.setSize(110, 110);
                 mergedPanel.add(button);
+                int finalRow = row;
+                int finalCol = col;
+                button.addMouseListener(new MouseListener() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        UIBackendLinker.establishClick(Board.getInstance().getTileAt(finalRow, finalCol), e);
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseReleased(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseEntered(MouseEvent e) {
+                    }
+
+                    @Override
+                    public void mouseExited(MouseEvent e) {
+                    }
+                });
             }
         }
         matchGame();
@@ -65,16 +99,17 @@ public class BoardUI {
                     switch (tile.getTileState()) {
                         case DRY -> {
                             BufferedImage regularImage = tile.getTileType().getRegularImage();
-                            ImageIcon icon = new ImageIcon(regularImage);
+                            ImageIcon icon = new ImageIcon(addPawns(regularImage, tile));
                             button.setIcon(icon);
                         }
                         case FLOODED -> {
                             BufferedImage regularImage = tile.getTileType().getFloodedImage();
-                            ImageIcon icon = new ImageIcon(regularImage);
+                            ImageIcon icon = new ImageIcon(addPawns(regularImage, tile));
                             button.setIcon(icon);
                         }
                         case SUNK -> {
-                            ImageIcon icon = new ImageIcon(ViewManager.getSurroundingWatersCropped());
+                            BufferedImage regularImage = ViewManager.getSurroundingWatersCropped();
+                            ImageIcon icon = new ImageIcon(addPawns(regularImage, tile));
                             button.setIcon(icon);
                         }
                     }
@@ -88,5 +123,17 @@ public class BoardUI {
 
     public JButton getButtonAt(int x, int y) {
         return buttons[x][y];
+    }
+
+    private BufferedImage addPawns(BufferedImage reg, Tile tile) {
+        List<Pawn> pawnList = Game.getGame().getPawnManager().getPawnsFor(tile);
+        if (pawnList.isEmpty()) return reg;
+        Graphics2D graphics2D = reg.createGraphics();
+        for (int index = 0; index < pawnList.size(); index++) {
+            Pawn pawn = pawnList.get(index);
+            BufferedImage image = ImageStorage.retrieveImage(pawn.getPlayerType().getFileLocation());
+            graphics2D.drawImage(ViewManager.getScaledImage(image, 25, 45), x[index], y[index], null);
+        }
+        return reg;
     }
 }

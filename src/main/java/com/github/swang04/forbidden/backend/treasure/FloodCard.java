@@ -39,7 +39,7 @@ public class FloodCard implements Card {
     }
 
     public String getFileLocation() {
-        return getTileType().name().toLowerCase() + "_flood_card.png";
+        return "flood_card_" + getTileType().name().toLowerCase() + ".png";
     }
 
     public FloodDeck getDeck() {

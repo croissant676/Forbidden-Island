@@ -31,11 +31,12 @@ public class BoardVisualizer extends Visualizer<Board> {
     public static void createBoardUI() {
         FlatDarkLaf.setup();
         frame = new JFrame("Forbidden Island > Game");
-        frame.setSize(1300, 900);
+        frame.setSize(1350, 900);
         JComponent component = GameVisualizer.getInstance().visualize(Game.getGame());
         frame.add(component);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(false);
     }
 
     @Override

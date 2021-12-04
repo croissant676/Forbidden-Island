@@ -55,11 +55,22 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
         JPanel panel = componentMap.get(player.getName());
         List<InventoryItem> items = player.getInventoryItems();
         panel.removeAll();
-        for (InventoryItem item : items) {
-            panel.add(inventoryItemVisualizer.visualize(item));
-        }
+        glueItem(items, panel);
         panel.repaint();
         GameVisualizer.getInstance().repaintPanels();
+    }
+
+    private static void glueItem(List<InventoryItem> items, JPanel panel) {
+        for (InventoryItem item : items) {
+            JPanel panel1 = new JPanel();
+            panel1.add(Box.createHorizontalGlue());
+            panel1.add(Box.createVerticalGlue());
+            panel1.add(inventoryItemVisualizer.visualize(item));
+            panel1.add(Box.createHorizontalGlue());
+            panel1.add(Box.createVerticalGlue());
+            panel1.setBackground(ViewManager.getTransparent());
+            panel.add(panel1);
+        }
     }
 
     @Override
@@ -72,19 +83,29 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
         JPanel panel = new JPanel();
         BoxLayout horizontal = new BoxLayout(panel, value);
         panel.setLayout(horizontal);
+        JPanel p = new JPanel();
         JLabel label = new JLabel(object.getPlayerType().getName(), JLabel.CENTER);
         label.setFont(new Font("Trebuchet MS", Font.PLAIN, 30));
-        wrapper.add(label);
+        label.setForeground(object.getPlayerType().getRepresentingColor());
+        label.setHorizontalAlignment(JLabel.CENTER);
+        p.add(Box.createHorizontalGlue());
+        p.add(Box.createVerticalGlue());
+        p.add(label);
+        p.add(Box.createHorizontalGlue());
+        p.add(Box.createVerticalGlue());
         if (value == BoxLayout.X_AXIS) {
             wrapper.add(Box.createHorizontalStrut(10));
         } else {
             wrapper.add(Box.createVerticalStrut(10));
         }
-        for (InventoryItem item : items) {
-            panel.add(inventoryItemVisualizer.visualize(item));
-        }
+        p.setBackground(ViewManager.getTransparent());
+        glueItem(items, panel);
+        panel.setBackground(ViewManager.getTransparent());
         componentMap.put(object.getName(), panel);
-        JButton button = new JButton("Give Card");
+        JPanel bp = new JPanel();
+        bp.add(Box.createHorizontalGlue());
+        bp.add(Box.createVerticalGlue());
+        JButton button = new JButton("Give");
         button.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
         button.addActionListener((e) -> {
             System.out.println("Calling thing for transfer to like " + object.getName());
@@ -95,15 +116,22 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
                 System.out.println("From " + player.getName());
             }
         });
+        bp.add(button);
+        bp.add(Box.createHorizontalGlue());
+        bp.add(Box.createVerticalGlue());
+        bp.setBackground(ViewManager.getTransparent());
         panel.setAlignmentX(0.5f);
         panel.setAlignmentY(0.5f);
+        wrapper.add(p);
         wrapper.add(panel);
+        wrapper.setAlignmentX(0.5f);
+        wrapper.setAlignmentY(0.5f);
         if (value == BoxLayout.X_AXIS) {
             wrapper.add(Box.createHorizontalStrut(10));
         } else {
             wrapper.add(Box.createVerticalStrut(10));
         }
-        wrapper.add(button);
+        wrapper.add(bp);
         return wrapper;
     }
 }

@@ -38,6 +38,8 @@ public class InventoryItemVisualizer extends Visualizer<InventoryItem> {
             JButton button = new JButton(new ImageIcon(ViewManager.getScaledImage(representingTreasure.getImage(), 55, 80)));
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.setAlignmentY(Component.CENTER_ALIGNMENT);
+            button.setHorizontalAlignment(JButton.CENTER);
+            button.setHorizontalAlignment(JButton.CENTER);
             button.addActionListener(e -> PlayerManager.setCurrentlySelectedItem(object));
             return button;
         } else if (object instanceof SandbagsCard) {
@@ -51,6 +53,8 @@ public class InventoryItemVisualizer extends Visualizer<InventoryItem> {
             JButton button = new JButton(new ImageIcon(Objects.requireNonNull(ViewManager.getScaledImage(bufferedImage, 55, 80))));
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.setAlignmentY(Component.CENTER_ALIGNMENT);
+            button.setHorizontalAlignment(JButton.CENTER);
+            button.setHorizontalAlignment(JButton.CENTER);
             return button;
         } else {
             return null;
@@ -62,6 +66,8 @@ public class InventoryItemVisualizer extends Visualizer<InventoryItem> {
         JButton button = new JButton(new ImageIcon(Objects.requireNonNull(ViewManager.getScaledImage(bufferedImage, 55, 80))));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setAlignmentY(Component.CENTER_ALIGNMENT);
+        button.setHorizontalAlignment(JButton.CENTER);
+        button.setHorizontalAlignment(JButton.CENTER);
         button.addActionListener(e -> PlayerManager.setCurrentlySelectedItem(object));
         return button;
     }

@@ -35,7 +35,7 @@ public class Pawn {
     }
 
     public List<Tile> getPossibleTiles() {
-        return null;
+        return playerType.getMovements();
     }
 
     public boolean canTradeWith(Pawn pawn) {

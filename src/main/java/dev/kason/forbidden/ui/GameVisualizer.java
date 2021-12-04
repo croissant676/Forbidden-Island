@@ -9,6 +9,7 @@ import com.github.swang04.forbidden.backend.Game;
 import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.players.Player;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
+import com.github.swang04.forbidden.backend.players.PlayerType;
 import com.github.swang04.forbidden.backend.treasure.InventoryItem;
 import com.github.swang04.forbidden.ui.Visualizer;
 import dev.kason.forbidden.ImageStorage;
@@ -38,10 +39,11 @@ public class GameVisualizer extends Visualizer<Game> {
     private final PlayerInventoryVisualizer horizontal = PlayerInventoryVisualizer.getHorizontal();
     private final PlayerInventoryVisualizer vertical = PlayerInventoryVisualizer.getVertical();
     private final TreasureDeckVisualizer treasureDeckVisualizer = TreasureDeckVisualizer.getInstance();
-    private static final JLabel label = new JLabel("Selected:");
+    private final JLabel label = new JLabel("Selected:");
+    private final JLabel currentPlayerLabel = new JLabel();
+    private final JPanel selectedCPanel = new JPanel();
     private JPanel gameWrapper;
     private JPanel gameBase;
-    private final JPanel selectedCPanel = new JPanel();
     private JPanel gameCardsPanel;
 
     public static GameVisualizer getInstance() {
@@ -70,12 +72,9 @@ public class GameVisualizer extends Visualizer<Game> {
         JFrame frame = BoardVisualizer.getFrame();
         int width = frame.getWidth();
         int height = frame.getHeight();
+        waterMeterVisualizer.updatePanel();
         frame.setSize(width + 1, height);
         frame.setSize(width, height);
-    }
-
-    static {
-        label.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
     }
 
     private final WaterMeterVisualizer waterMeterVisualizer = new WaterMeterVisualizer();
@@ -94,8 +93,16 @@ public class GameVisualizer extends Visualizer<Game> {
         repaintPanels();
     }
 
+    public void updateCurPlayerLabel() {
+        PlayerType playerType = PlayerManager.getInstance().getCurrentPlayer().getPlayerType();
+        currentPlayerLabel.setText(playerType.getName());
+        currentPlayerLabel.setForeground(playerType.getRepresentingColor());
+    }
+
     @Override
     public JComponent visualize(Game object) {
+        label.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
+        currentPlayerLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
         final BufferedImage image = ViewManager.getScaledImage(ImageStorage.retrieveImage("table_background.png"), 1500, 1000);
         gameWrapper = new JPanel() {
             @Override
@@ -148,7 +155,10 @@ public class GameVisualizer extends Visualizer<Game> {
         });
         button.setSize(70, 100);
         gameCardsPanel.add(selectedCPanel);
+        updateCurPlayerLabel();
+        gameCardsPanel.add(currentPlayerLabel);
         updateSelectedItemComponent();
+        UIBackendLinker.paintMovements();
         gameCardsPanel.add(button);
         gameWrapper.add(waterMeterVisualizer.visualize(Board.getInstance().getWaterMeter()));
         gameWrapper.add(gameCardsPanel);
