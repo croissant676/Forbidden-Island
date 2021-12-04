@@ -5,23 +5,30 @@
 
 package com.github.swang04.forbidden.backend.treasure;
 
-import com.github.swang04.forbidden.backend.players.Player;
+import com.github.swang04.forbidden.backend.board.TileType;
 import dev.kason.forbidden.ImageStorage;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.List;
 
-public enum Treasure implements InventoryItem {
+public enum Treasure {
     EARTH_STONE,
     CRYSTAL_OF_FIRE,
     STATUE_OF_WIND,
     OCEAN_CHALICE;
 
-    private Player holder = null;
+    private final List<TileType> tileTypes = new ArrayList<>();
+    private boolean takenYet = false;
 
     static {
         for (Treasure value : values()) {
             value.image = ImageStorage.retrieveImage(value.getFileName());
         }
+    }
+
+    public List<TileType> getTileTypes() {
+        return tileTypes;
     }
 
     private BufferedImage image;
@@ -39,6 +46,14 @@ public enum Treasure implements InventoryItem {
         } + ".png";
     }
 
+    public boolean isTakenYet() {
+        return takenYet;
+    }
+
+    public void setTakenYet(boolean takenYet) {
+        this.takenYet = takenYet;
+    }
+
     public String getFormalName() {
         return switch (this) {
             case STATUE_OF_WIND -> "Statue of Wind";
@@ -51,14 +66,5 @@ public enum Treasure implements InventoryItem {
     @Override
     public String toString() {
         return name();
-    }
-
-    @Override
-    public Player getHolder() {
-        return holder;
-    }
-
-    public void setHolder(Player holder) {
-        this.holder = holder;
     }
 }

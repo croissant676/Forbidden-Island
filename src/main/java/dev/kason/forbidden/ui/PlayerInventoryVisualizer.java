@@ -8,6 +8,7 @@ package dev.kason.forbidden.ui;
 import com.github.swang04.forbidden.backend.players.Player;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
 import com.github.swang04.forbidden.backend.treasure.InventoryItem;
+import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
 import com.github.swang04.forbidden.ui.Visualizer;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,6 +17,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.Font;
 import java.util.HashMap;
@@ -111,9 +113,9 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
             System.out.println("Calling thing for transfer to like " + object.getName());
             Player player = PlayerManager.getInstance().getCurrentPlayer();
             if (object.equals(player)) {
-                System.out.println("Code to prevent player from trading with themselves.");
+                JOptionPane.showMessageDialog(null, "You can't trade with yourself!", "Forbidden Island > Trade with self", JOptionPane.WARNING_MESSAGE);
             } else {
-                System.out.println("From " + player.getName());
+                player.transferCard(object, (TreasureDeckCard) PlayerManager.getCurrentlySelectedItem());
             }
         });
         bp.add(button);

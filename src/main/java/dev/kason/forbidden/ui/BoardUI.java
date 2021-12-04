@@ -14,6 +14,7 @@ import dev.kason.forbidden.ImageStorage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.MouseEvent;
@@ -86,11 +87,23 @@ public class BoardUI {
         return mergedPanel;
     }
 
-    public void matchGame() {
-        updateTilesOnly();
+    private static BufferedImage copyImage(BufferedImage source) {
+        BufferedImage b = new BufferedImage(source.getWidth(), source.getHeight(), source.getType());
+        Graphics g = b.getGraphics();
+        g.drawImage(source, 0, 0, null);
+        g.dispose();
+        return b;
     }
 
-    public void updateTilesOnly() {
+    public void matchGame() {
+        showTilesAndPawns();
+    }
+
+    public JButton getButtonAt(int x, int y) {
+        return buttons[x][y];
+    }
+
+    public void showTilesAndPawns() {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
                 JButton button = buttons[row][col];
@@ -121,19 +134,16 @@ public class BoardUI {
         }
     }
 
-    public JButton getButtonAt(int x, int y) {
-        return buttons[x][y];
-    }
-
     private BufferedImage addPawns(BufferedImage reg, Tile tile) {
         List<Pawn> pawnList = Game.getGame().getPawnManager().getPawnsFor(tile);
         if (pawnList.isEmpty()) return reg;
-        Graphics2D graphics2D = reg.createGraphics();
+        BufferedImage copy = copyImage(reg);
+        Graphics2D graphics2D = copy.createGraphics();
         for (int index = 0; index < pawnList.size(); index++) {
             Pawn pawn = pawnList.get(index);
             BufferedImage image = ImageStorage.retrieveImage(pawn.getPlayerType().getFileLocation());
             graphics2D.drawImage(ViewManager.getScaledImage(image, 25, 45), x[index], y[index], null);
         }
-        return reg;
+        return copy;
     }
 }

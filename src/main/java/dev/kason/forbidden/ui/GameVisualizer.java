@@ -95,7 +95,7 @@ public class GameVisualizer extends Visualizer<Game> {
 
     public void updateCurPlayerLabel() {
         PlayerType playerType = PlayerManager.getInstance().getCurrentPlayer().getPlayerType();
-        currentPlayerLabel.setText(playerType.getName());
+        currentPlayerLabel.setText(playerType.getName() + " - " + PlayerManager.getInstance().getNumberOfActionsLeft());
         currentPlayerLabel.setForeground(playerType.getRepresentingColor());
     }
 

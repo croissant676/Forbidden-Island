@@ -15,11 +15,13 @@ public class WatersRiseCard implements TreasureDeckCard {
 
     @Override
     public void setHolder(Player player) {
-
     }
 
     @Override
     public void onDraw(Player player) {
+    }
+
+    public void apply() {
 
     }
 

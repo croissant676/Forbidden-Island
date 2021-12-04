@@ -64,6 +64,22 @@ public class PlayerManager {
         return currentPlayer = playerIterator.next();
     }
 
+    private double numberOfActionsLeft = 3.0;
+
+    public void decrementActionsLeft() {
+        numberOfActionsLeft--;
+        GameVisualizer.getInstance().updateCurPlayerLabel();
+    }
+
+    public void engineerActions() {
+        numberOfActionsLeft -= 0.5;
+        GameVisualizer.getInstance().updateCurPlayerLabel();
+    }
+
+    public double getNumberOfActionsLeft() {
+        return numberOfActionsLeft;
+    }
+
     public static InventoryItem getCurrentlySelectedItem() {
         if (currentlySelectedItem == null) {
             currentlySelectedItem = getInstance().getCurrentPlayer().getInventoryItems().get(0);

@@ -5,13 +5,17 @@
 
 package com.github.swang04.forbidden.ui;
 
+import dev.kason.forbidden.ImageStorage;
 import dev.kason.forbidden.ui.View;
-import dev.kason.forbidden.ui.ViewManager;
 
 import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+import static com.github.swang04.forbidden.ui.LossView.getComponent;
 
 public class WinView extends View {
 
@@ -25,14 +29,26 @@ public class WinView extends View {
         return view;
     }
 
+    public static void runView() {
+        JFrame frame = new JFrame();
+        frame.add(view.getDisplay());
+        frame.setVisible(true);
+        frame.setSize(400, 200);
+        frame.setTitle("Forbidden Island > You win!");
+        frame.setResizable(false);
+    }
+
     @Override
     public JComponent getDisplay() {
-        JPanel panel = new JPanel();
+        final BufferedImage bufferedImage = ImageStorage.retrieveImage("regular_background.png");
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(bufferedImage, 0, 0, null);
+            }
+        };
         JLabel winText = new JLabel("YOU WIN!", JLabel.CENTER);
-        winText.setFont(new Font("Serif", Font.BOLD, 70));
-        panel.add(winText);
-        panel.setSize(900, 800);
-        ViewManager.display(MenuView.getInstance());
-        return panel;
+        return getComponent(panel, winText);
     }
 }

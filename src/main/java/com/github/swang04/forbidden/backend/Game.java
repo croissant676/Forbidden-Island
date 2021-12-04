@@ -7,12 +7,17 @@ package com.github.swang04.forbidden.backend;
 
 import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.board.PawnManager;
+import com.github.swang04.forbidden.backend.board.TileState;
+import com.github.swang04.forbidden.backend.board.TileType;
 import com.github.swang04.forbidden.backend.board.WaterMeter;
+import com.github.swang04.forbidden.backend.players.Player;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
+import com.github.swang04.forbidden.backend.treasure.Treasure;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 import com.github.swang04.forbidden.ui.LossView;
 import dev.kason.forbidden.ui.ViewManager;
 
+import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -70,6 +75,55 @@ public class Game {
 
     public void gameLost() {
         ViewManager.display(LossView.getInstance());
+    }
+
+    public static final int LOSS = 42069;
+    public static final int WIN = 6942069;
+    public static final int NONE = 69420;
+    private static String lossReason;
+
+    public static String getLossReason() {
+        return lossReason;
+    }
+
+    public void start() {
+
+    }
+
+    public int checkForWinLossConditions() {
+        if (Board.getInstance().getWaterMeter().getState() > 8) {
+            lossReason = "Water Meter has reached 6.";
+        }
+        if (TileType.LANDING.getTile().getTileState() == TileState.SUNK) {
+            lossReason = "Fool's Landing has sunk!";
+            return LOSS;
+        }
+        for (Player player : PlayerManager.getInstance().getPlayers()) {
+            if (player.getPawn().getTile().getTileState() == TileState.SUNK && player.getPlayerType().getMovements().isEmpty()) {
+                lossReason = player.getPlayerType().getName() + " does not have anywhere to go.";
+                return LOSS;
+            }
+        }
+        for (Treasure treasure : Treasure.values()) {
+            List<TileType> tileTypes = treasure.getTileTypes();
+            if (!treasure.isTakenYet() && tileTypes.get(0).getTile().getTileState() != TileState.SUNK && tileTypes.get(1).getTile().getTileState() != TileState.SUNK) {
+                lossReason = "Cannot access treasure " + treasure.getFormalName() + ".";
+                return LOSS;
+            }
+        }
+        for (Player player : PlayerManager.getInstance().getPlayers()) {
+            boolean allTreasures = true;
+            for (Treasure value : Treasure.values()) {
+                if (!value.isTakenYet()) {
+                    allTreasures = false;
+                    break;
+                }
+            }
+            if (allTreasures && player.getPawn().getTile().getTileType() == TileType.LANDING) {
+                return WIN;
+            }
+        }
+        return NONE;
     }
 
     @Override

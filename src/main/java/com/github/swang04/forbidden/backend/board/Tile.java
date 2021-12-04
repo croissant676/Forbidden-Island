@@ -30,6 +30,9 @@ public class Tile {
         this.tileType = tileType;
         tileState = TileState.DRY;
         treasure = TileType.getTreasure(tileType);
+        if (treasure != null) {
+            treasure.getTileTypes().add(tileType);
+        }
     }
 
     public int getX() {

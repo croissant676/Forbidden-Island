@@ -37,7 +37,9 @@ public class Board {
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
                 // Creates the desired shape
-                if (row + col < 2 || row + col > 8 || Math.abs(row - col) >= 4) continue;
+                if (row + col < 2 || row + col > 8 || Math.abs(row - col) >= 4) {
+                    continue;
+                }
                 tiles[row][col] = new Tile(row, col, tileTypeList.get(count++));
             }
         }

@@ -8,6 +8,8 @@ package dev.kason.forbidden.ui;
 import com.github.swang04.forbidden.backend.players.Player;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
+import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
+import com.github.swang04.forbidden.backend.treasure.WatersRiseCard;
 import com.github.swang04.forbidden.ui.Visualizer;
 import dev.kason.forbidden.ImageStorage;
 
@@ -32,7 +34,13 @@ public class TreasureDeckVisualizer extends Visualizer<TreasureDeck> {
         JButton button = new JButton(new ImageIcon(Objects.requireNonNull(bufferedImage)));
         button.addActionListener(e -> {
             Player player = PlayerManager.getInstance().getCurrentPlayer();
-            player.receiveCard(PlayerManager.getInstance().validateCard(object.popTopCard()));
+            TreasureDeckCard card = object.popTopCard();
+            if (card instanceof WatersRiseCard riseCard) {
+                riseCard.apply();
+                BoardUI.getInstance().showTilesAndPawns();
+                GameVisualizer.getInstance().repaintPanels();
+            }
+            player.receiveCard(PlayerManager.getInstance().validateCard(card));
             PlayerInventoryVisualizer.updateHand(player);
         });
         return button;

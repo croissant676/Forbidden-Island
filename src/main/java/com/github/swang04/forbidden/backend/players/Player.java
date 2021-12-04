@@ -37,7 +37,7 @@ public class Player {
         if (inventoryItems.size() >= 5) {
             JOptionPane.showMessageDialog(null,
                     "You already have 5 cards, so you cannot draw another card. Please discard or use one card.",
-                    "Stop being greedy",
+                    "Forbidden Island > Too Many Cards",
                     JOptionPane.WARNING_MESSAGE
             );
             TreasureDeck deck = PlayerManager.getInstance().getDeck();
@@ -46,6 +46,22 @@ public class Player {
         }
         card.setHolder(this);
         inventoryItems.add(card);
+    }
+
+    public void transferCard(Player player, TreasureDeckCard card) {
+        if (!inventoryItems.contains(card)) {
+            JOptionPane.showMessageDialog(null, "You cannot transfer a card you don't have.", "Forbidden Island > Transfer Card", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (player.getInventoryItems().size() >= 5) {
+            JOptionPane.showMessageDialog(null,
+                    player.getPlayerType().getName() + " already has 5 cards, so they cannot receive another another card. Please have them discard a card first, and then transfer.",
+                    "Forbidden Island > Too Many Cards",
+                    JOptionPane.WARNING_MESSAGE
+            );
+        }
+        inventoryItems.remove(card);
+        player.receiveCard(card);
     }
 
     public Pawn getPawn() {

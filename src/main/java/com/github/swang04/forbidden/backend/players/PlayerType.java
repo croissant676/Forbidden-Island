@@ -6,6 +6,7 @@
 package com.github.swang04.forbidden.backend.players;
 
 import com.github.swang04.forbidden.backend.Game;
+import com.github.swang04.forbidden.backend.board.Board;
 import com.github.swang04.forbidden.backend.board.Tile;
 import com.github.swang04.forbidden.backend.board.TileState;
 import com.github.swang04.forbidden.backend.board.TileType;
@@ -19,10 +20,41 @@ import java.util.Set;
 
 public enum PlayerType {
     EXPLORER {
+        @Override
+        public List<Tile> getMovements() {
+            List<Tile> tiles = super.getMovements();
+            Tile pawnTile = getPawn().getTile();
+            Tile tile = pawnTile.getBottomLeft();
+            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
+            tile = pawnTile.getBottomRight();
+            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
+            tile = pawnTile.getTopLeft();
+            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
+            tile = pawnTile.getTopRight();
+            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
+            return tiles;
+        }
     },
     DIVER {
+        @Override
+        public List<Tile> getMovements() {
+            return super.getMovements();
+        }
     },
     PILOT {
+        @Override
+        public List<Tile> getMovements() {
+            List<Tile> tiles = new ArrayList<>();
+            Board instance = Board.getInstance();
+            for (int row = 0; row < 6; row++) {
+                for (int col = 0; col < 6; col++) {
+                    if (instance.isNotNull(row, col) && instance.getTileAt(row, col).getTileState() != TileState.SUNK) {
+                        tiles.add(instance.getTileAt(row, col));
+                    }
+                }
+            }
+            return tiles;
+        }
     },
     ENGINEER {
     },

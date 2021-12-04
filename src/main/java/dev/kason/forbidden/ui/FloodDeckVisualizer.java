@@ -36,7 +36,7 @@ public class FloodDeckVisualizer extends Visualizer<FloodDeck> {
         button.addActionListener(e -> {
             FloodCard card = object.floodTopCard();
             Tile tile = card.getTile();
-            BoardUI.getInstance().updateTilesOnly();
+            BoardUI.getInstance().showTilesAndPawns();
         });
         return button;
     }
