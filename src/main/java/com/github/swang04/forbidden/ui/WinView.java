@@ -31,6 +31,7 @@ public class WinView extends View {
 
     public static void runView() {
         JFrame frame = new JFrame();
+        frame.setIconImage(ImageStorage.retrieveImage("icon_1.png"));
         frame.add(view.getDisplay());
         frame.setVisible(true);
         frame.setSize(400, 200);

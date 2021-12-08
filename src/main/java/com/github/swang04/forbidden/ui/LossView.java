@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.ui;
 
+import com.github.swang04.forbidden.backend.Game;
 import dev.kason.forbidden.ImageStorage;
 import dev.kason.forbidden.Log;
 import dev.kason.forbidden.ui.View;
@@ -34,7 +35,7 @@ public class LossView extends View {
     }
 
     @NotNull
-    static JComponent getComponent(JPanel panel, JLabel winText) {
+    static JPanel getComponent(JPanel panel, JLabel winText) {
         winText.setFont(new Font("Trebuchet MS", Font.BOLD, 70));
         panel.add(winText);
         JButton button = new JButton("Exit Game");
@@ -47,6 +48,7 @@ public class LossView extends View {
 
     public static void runView() {
         JFrame frame = new JFrame();
+        frame.setIconImage(ImageStorage.retrieveImage("icon_1.png"));
         frame.add(view.getDisplay());
         frame.setVisible(true);
         frame.setSize(400, 200);
@@ -65,6 +67,16 @@ public class LossView extends View {
             }
         };
         JLabel winText = new JLabel("You lost!", JLabel.CENTER);
-        return getComponent(panel, winText);
+        JLabel label = new JLabel(Game.getLossReason(), JLabel.CENTER);
+        winText.setFont(new Font("Trebuchet MS", Font.BOLD, 70));
+        panel.add(winText);
+        panel.add(label);
+        label.setFont(new Font("Trebuchet MS", Font.BOLD, 30));
+        JButton button = new JButton("Exit Game");
+        button.setFont(new Font("Trebuchet MS", Font.BOLD, 20));
+        panel.add(button);
+        button.addActionListener((e) -> System.exit(0));
+        panel.setSize(900, 800);
+        return panel;
     }
 }

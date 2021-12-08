@@ -17,7 +17,6 @@ import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 import com.github.swang04.forbidden.ui.LossView;
 import dev.kason.forbidden.ui.ViewManager;
 
-import java.util.List;
 import java.util.Random;
 
 public class Game {
@@ -86,13 +85,10 @@ public class Game {
         return lossReason;
     }
 
-    public void start() {
-
-    }
-
     public int checkForWinLossConditions() {
+
         if (Board.getInstance().getWaterMeter().getState() > 8) {
-            lossReason = "Water Meter has reached 6.";
+            lossReason = "Water Meter has reached its death state.";
         }
         if (TileType.LANDING.getTile().getTileState() == TileState.SUNK) {
             lossReason = "Fool's Landing has sunk!";
@@ -105,23 +101,13 @@ public class Game {
             }
         }
         for (Treasure treasure : Treasure.values()) {
-            List<TileType> tileTypes = treasure.getTileTypes();
-            if (!treasure.isTakenYet() && tileTypes.get(0).getTile().getTileState() != TileState.SUNK && tileTypes.get(1).getTile().getTileState() != TileState.SUNK) {
+            if (treasure.isUnreachable()) {
                 lossReason = "Cannot access treasure " + treasure.getFormalName() + ".";
                 return LOSS;
             }
         }
-        for (Player player : PlayerManager.getInstance().getPlayers()) {
-            boolean allTreasures = true;
-            for (Treasure value : Treasure.values()) {
-                if (!value.isTakenYet()) {
-                    allTreasures = false;
-                    break;
-                }
-            }
-            if (allTreasures && player.getPawn().getTile().getTileType() == TileType.LANDING) {
-                return WIN;
-            }
+        if (PlayerManager.getInstance().getPlayers().stream().allMatch((player) -> player.getPawn().getTile().getTileType() == TileType.LANDING) && PlayerManager.getInstance().getWonTreasures().size() == 4) {
+            return WIN;
         }
         return NONE;
     }

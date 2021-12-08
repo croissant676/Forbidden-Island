@@ -117,7 +117,6 @@ public class SettingsView extends View {
             Logger logger = Log.logger();
             logger.info("Displaying the board ui");
             ViewManager.getMainFrame().setVisible(false);
-            System.out.println(ViewManager.getMainFrame().getSize());
             String[] array = new String[Integer.parseInt((String) Objects.requireNonNull(numPlayers.getSelectedItem()))];
             currentWindow.setVisible(false);
             Arrays.fill(array, "sus");

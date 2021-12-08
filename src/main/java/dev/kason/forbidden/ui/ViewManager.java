@@ -11,6 +11,8 @@ import dev.kason.forbidden.Log;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -19,6 +21,7 @@ import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class ViewManager {
@@ -34,6 +37,7 @@ public class ViewManager {
         mainFrame = new JFrame();
         mainFrame.setVisible(true);
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setIconImage(ImageStorage.retrieveImage("icon_1.png"));
     }
 
     public static void register(@NotNull View view) {
@@ -46,6 +50,10 @@ public class ViewManager {
         if (view.getName().equals(property)) {
             display(view);
         }
+    }
+
+    public static Icon getJOPImage() {
+        return new ImageIcon(Objects.requireNonNull(ImageStorage.retrieveImage("icon_1.png")));
     }
 
     private static BoardUI boardUI;

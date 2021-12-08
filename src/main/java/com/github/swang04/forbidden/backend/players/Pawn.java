@@ -7,7 +7,7 @@ package com.github.swang04.forbidden.backend.players;
 
 import com.github.swang04.forbidden.backend.board.Tile;
 
-import java.util.List;
+import java.util.Set;
 
 public class Pawn {
 
@@ -22,6 +22,10 @@ public class Pawn {
         this.tile = playerType.getSpawn().getTile();
     }
 
+    public boolean isOnSameTileAs(Pawn other) {
+        return tile.equals(other.getTile());
+    }
+
     public Player getControllingPlayer() {
         return player;
     }
@@ -34,7 +38,7 @@ public class Pawn {
         this.tile = tile;
     }
 
-    public List<Tile> getPossibleTiles() {
+    public Set<Tile> getPossibleTiles() {
         return playerType.getMovements();
     }
 

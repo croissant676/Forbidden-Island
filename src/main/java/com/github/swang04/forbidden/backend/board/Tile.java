@@ -67,6 +67,10 @@ public class Tile {
         this.tileState = tileState;
     }
 
+    public void shoreUp() {
+        setTileState((getTileState() == TileState.SUNK) ? TileState.FLOODED : TileState.DRY);
+    }
+
     public void progressFlooding() {
         tileState = (tileState == TileState.DRY) ? TileState.FLOODED : TileState.SUNK;
     }
@@ -96,7 +100,7 @@ public class Tile {
     }
 
     public Tile getBottomRight() {
-        return getRelation(1, -1);
+        return getRelation(1, 1);
     }
 
     public Tile getBottomLeft() {

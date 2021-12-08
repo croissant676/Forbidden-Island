@@ -12,6 +12,7 @@ import dev.kason.forbidden.ui.ViewManager;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 // Author: Kason
@@ -46,6 +47,7 @@ public enum TileType {
     private BufferedImage floodedImage;
     private BufferedImage floodCardImage;
 
+    private boolean drawn = false;
     private PlayerType spawn;
 
     public String getFormalName() {
@@ -63,10 +65,12 @@ public enum TileType {
     }
 
     public BufferedImage getRegularImage() {
+        drawImage();
         return regularImage;
     }
 
     public BufferedImage getFloodedImage() {
+        drawImage();
         return floodedImage;
     }
 
@@ -106,6 +110,23 @@ public enum TileType {
             System.out.println(formalName + " no image :(");
             exception.printStackTrace();
         }
+    }
+
+    private void drawImage() {
+        if (drawn) return;
+        drawn = true;
+        if (getTreasure(this) == null) return;
+        Graphics2D graphics2D = floodedImage.createGraphics();
+        drawImageGivenGraphics(graphics2D);
+        graphics2D = regularImage.createGraphics();
+        drawImageGivenGraphics(graphics2D);
+    }
+
+    private void drawImageGivenGraphics(Graphics2D graphics2D) {
+        Treasure treasure = getTreasure(this);
+        BufferedImage image = ImageStorage.retrieveImage(treasure.getImageFileName());
+        image = ViewManager.getScaledImage(image, 30, 30);
+        graphics2D.drawImage(image, 70, 70, null);
     }
 
     @Contract(pure = true)

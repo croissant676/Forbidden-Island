@@ -7,6 +7,7 @@ package dev.kason.forbidden.ui;
 
 import com.github.swang04.forbidden.backend.players.Player;
 import com.github.swang04.forbidden.backend.players.PlayerManager;
+import com.github.swang04.forbidden.backend.players.PlayerType;
 import com.github.swang04.forbidden.backend.treasure.InventoryItem;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
 import com.github.swang04.forbidden.ui.Visualizer;
@@ -54,7 +55,7 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
     }
 
     public static void updateHand(Player player) {
-        JPanel panel = componentMap.get(player.getName());
+        JPanel panel = componentMap.get(player.getPlayerType().getName());
         List<InventoryItem> items = player.getInventoryItems();
         panel.removeAll();
         glueItem(items, panel);
@@ -103,19 +104,22 @@ public class PlayerInventoryVisualizer extends Visualizer<Player> {
         p.setBackground(ViewManager.getTransparent());
         glueItem(items, panel);
         panel.setBackground(ViewManager.getTransparent());
-        componentMap.put(object.getName(), panel);
+        componentMap.put(object.getPlayerType().getName(), panel);
         JPanel bp = new JPanel();
         bp.add(Box.createHorizontalGlue());
         bp.add(Box.createVerticalGlue());
         JButton button = new JButton("Give");
         button.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
         button.addActionListener((e) -> {
-            System.out.println("Calling thing for transfer to like " + object.getName());
             Player player = PlayerManager.getInstance().getCurrentPlayer();
             if (object.equals(player)) {
                 JOptionPane.showMessageDialog(null, "You can't trade with yourself!", "Forbidden Island > Trade with self", JOptionPane.WARNING_MESSAGE);
             } else {
-                player.transferCard(object, (TreasureDeckCard) PlayerManager.getCurrentlySelectedItem());
+                if (player.getPlayerType() == PlayerType.MESSENGER || player.getPawn().isOnSameTileAs(object.getPawn())) {
+                    player.transferCard(object, (TreasureDeckCard) PlayerManager.getCurrentlySelectedItem());
+                } else {
+                    JOptionPane.showMessageDialog(null, "You are not on the same tile as " + object.getPlayerType().getName() + ".", "Forbidden Island > Not on same tile", JOptionPane.WARNING_MESSAGE);
+                }
             }
         });
         bp.add(button);

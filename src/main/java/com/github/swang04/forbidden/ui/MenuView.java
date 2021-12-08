@@ -116,7 +116,7 @@ public class MenuView extends View {
         textArea.setBackground(new Color(0, 0, 0, 0.0f));
         textArea.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
         textArea.setForeground(Color.DARK_GRAY);
-        textArea.setSize(300, 500);
+        textArea.setSize(500, 700);
         wrapper.add(textArea);
         JButton download = new JButton("View Rulebook");
         download.setFont(new Font("Trebuchet MS", Font.PLAIN, 20));
@@ -133,8 +133,9 @@ public class MenuView extends View {
             }
         });
         wrapper.add(download);
+        this.instructions.setIconImage(ImageStorage.retrieveImage("icon_1.png"));
         this.instructions.add(wrapper);
-        this.instructions.setSize(315, 375);
+        this.instructions.setSize(500, 600);
         this.instructions.setVisible(true);
         this.instructions.setResizable(false);
     }

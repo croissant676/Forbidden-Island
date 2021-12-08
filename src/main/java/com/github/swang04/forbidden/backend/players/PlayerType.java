@@ -14,37 +14,73 @@ import dev.kason.forbidden.ImageStorage;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 
 public enum PlayerType {
     EXPLORER {
         @Override
-        public List<Tile> getMovements() {
-            List<Tile> tiles = super.getMovements();
+        public Set<Tile> getMovements() {
+            Set<Tile> tiles = super.getMovements();
             Tile pawnTile = getPawn().getTile();
-            Tile tile = pawnTile.getBottomLeft();
-            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
-            tile = pawnTile.getBottomRight();
-            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
-            tile = pawnTile.getTopLeft();
-            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
-            tile = pawnTile.getTopRight();
-            if (tile != null && tile.getTileState() != TileState.SUNK) tiles.add(tile);
+            checkAndAddDiagonals(tiles, pawnTile);
             return tiles;
         }
     },
     DIVER {
+
         @Override
-        public List<Tile> getMovements() {
-            return super.getMovements();
+        public Set<Tile> getMovements() {
+            // Simple Flood fill algorithm
+            Pawn pawn = getPawn();
+            Queue<Tile> tiles = new LinkedList<>();
+            Set<Tile> beenTo = new HashSet<>();
+            Tile start = pawn.getTile();
+            tiles.add(start.getAbove());
+            tiles.add(start.getBelow());
+            tiles.add(start.getRight());
+            tiles.add(start.getLeft());
+            while(!tiles.isEmpty()){
+                Tile tile = tiles.remove();
+                if(tile == null || tile.getTileState() == TileState.DRY || beenTo.contains(tile)) {
+                    continue;
+                }
+                beenTo.add(tile);
+                tiles.add(tile.getAbove());
+                tiles.add(tile.getBelow());
+                tiles.add(tile.getRight());
+                tiles.add(tile.getLeft());
+            }
+            Set<Tile> def = super.getMovements();
+            for (Tile pawnTile : beenTo) {
+                def.add(pawnTile);
+                Tile tile = pawnTile.getLeft();
+                if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+                tile = pawnTile.getRight();
+                if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+                tile = pawnTile.getBelow();
+                if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+                tile = pawnTile.getAbove();
+                if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+            }
+            return def;
+        }
+        @Override
+        public Set<Tile> getShoreUp() {
+            return getDefaultShoreUp();
+        }
+
+        @Override
+        public boolean shouldDiffSUAndMovements() {
+            return true;
         }
     },
     PILOT {
         @Override
-        public List<Tile> getMovements() {
-            List<Tile> tiles = new ArrayList<>();
+        public Set<Tile> getMovements() {
+            Set<Tile> tiles = new HashSet<>();
             Board instance = Board.getInstance();
             for (int row = 0; row < 6; row++) {
                 for (int col = 0; col < 6; col++) {
@@ -55,13 +91,34 @@ public enum PlayerType {
             }
             return tiles;
         }
+
+        @Override
+        public Set<Tile> getShoreUp() {
+            return getDefaultShoreUp();
+        }
+
+        @Override
+        public boolean shouldDiffSUAndMovements() {
+            return true;
+        }
     },
-    ENGINEER {
+    ENGINEER { // Code is built in
     },
-    MESSENGER {
+    MESSENGER { // Code is built in
     },
-    NAVIGATOR {
+    NAVIGATOR { // Code is built in
     };
+
+    private static void checkAndAddDiagonals(Set<Tile> def, Tile pawnTile) {
+        Tile tile = pawnTile.getBottomLeft();
+        if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+        tile = pawnTile.getBottomRight();
+        if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+        tile = pawnTile.getTopLeft();
+        if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+        tile = pawnTile.getTopRight();
+        if (tile != null && tile.getTileState() != TileState.SUNK) def.add(tile);
+    }
 
     private BufferedImage image;
     private Pawn pawn;
@@ -122,8 +179,13 @@ public enum PlayerType {
         };
     }
 
-    public List<Tile> getMovements() {
-        List<Tile> tiles = new ArrayList<>();
+    public Set<Tile> getMovements() {
+        return getDefaultMovements();
+    }
+
+
+    public final Set<Tile> getDefaultMovements() {
+        Set<Tile> tiles = new HashSet<>();
         for (int index = 0; index < 4; index++) {
             Tile tile = getPawn().getTile().getRelation(x[index], y[index]);
             if (tile != null && tile.getTileState() != TileState.SUNK) {
@@ -131,6 +193,22 @@ public enum PlayerType {
             }
         }
         return tiles;
+    }
+
+    public Set<Tile> getShoreUp() {
+        Set<Tile> tiles = getMovements();
+        tiles.add(pawn.getTile());
+        return tiles;
+    }
+
+    public final Set<Tile> getDefaultShoreUp() {
+        Set<Tile> tiles = getDefaultMovements();
+        tiles.add(pawn.getTile());
+        return tiles;
+    }
+
+    public boolean shouldDiffSUAndMovements() {
+        return false;
     }
 
     public String getFileLocation() {

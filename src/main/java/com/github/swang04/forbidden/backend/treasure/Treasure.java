@@ -5,6 +5,7 @@
 
 package com.github.swang04.forbidden.backend.treasure;
 
+import com.github.swang04.forbidden.backend.board.TileState;
 import com.github.swang04.forbidden.backend.board.TileType;
 import dev.kason.forbidden.ImageStorage;
 
@@ -46,6 +47,10 @@ public enum Treasure {
         } + ".png";
     }
 
+    public String getImageFileName() {
+        return "treasure_" + name().toLowerCase() + ".png";
+    }
+
     public boolean isTakenYet() {
         return takenYet;
     }
@@ -58,9 +63,13 @@ public enum Treasure {
         return switch (this) {
             case STATUE_OF_WIND -> "Statue of Wind";
             case EARTH_STONE -> "Earth Stone";
-            case OCEAN_CHALICE -> "Ocean Chalice";
-            case CRYSTAL_OF_FIRE -> "Crystal Of File";
+            case OCEAN_CHALICE -> "Ocean's Chalice";
+            case CRYSTAL_OF_FIRE -> "Crystal Of Fire";
         };
+    }
+
+    public boolean isUnreachable() {
+        return isTakenYet() && tileTypes.stream().allMatch(tileType -> tileType.getTile().getTileState() == TileState.SUNK);
     }
 
     @Override

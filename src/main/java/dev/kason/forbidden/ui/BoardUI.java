@@ -14,6 +14,7 @@ import dev.kason.forbidden.ImageStorage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -34,16 +35,17 @@ public class BoardUI {
 
     public static final int[] x = {5, 50, 5, 50};
     public static final int[] y = {5, 5, 50, 50};
+    public static Color BUTTON_COLOR = new Color(30, 144, 255);
 
     // All tiles should be 100 x 100
     public BoardUI() {
+        ui = this;
         buttons = new JButton[6][6];
         mergedPanel = new JPanel();
         ViewManager.setBoardUI(this);
         GridLayout layout = new GridLayout(6, 6, 5, 5);
         mergedPanel.setBackground(ViewManager.getTransparent());
         mergedPanel.setLayout(layout);
-        ui = this;
         for (int row = 0; row < 6; row++) {
             for (int col = 0; col < 6; col++) {
                 JButton button = new JButton();
@@ -55,11 +57,11 @@ public class BoardUI {
                 button.addMouseListener(new MouseListener() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        UIBackendLinker.establishClick(Board.getInstance().getTileAt(finalRow, finalCol), e);
                     }
 
                     @Override
                     public void mousePressed(MouseEvent e) {
+                        UIBackendLinker.establishClick(Board.getInstance().getTileAt(finalRow, finalCol), e);
                     }
 
                     @Override

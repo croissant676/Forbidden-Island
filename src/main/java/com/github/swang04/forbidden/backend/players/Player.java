@@ -6,9 +6,9 @@
 package com.github.swang04.forbidden.backend.players;
 
 import com.github.swang04.forbidden.backend.treasure.InventoryItem;
-import com.github.swang04.forbidden.backend.treasure.TreasureDeck;
 import com.github.swang04.forbidden.backend.treasure.TreasureDeckCard;
 import dev.kason.forbidden.PlayerTypeDistributor;
+import dev.kason.forbidden.ui.PlayerInventoryVisualizer;
 
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
@@ -33,19 +33,10 @@ public class Player {
         this.name = name;
     }
 
-    public void receiveCard(TreasureDeckCard card) {
-        if (inventoryItems.size() >= 5) {
-            JOptionPane.showMessageDialog(null,
-                    "You already have 5 cards, so you cannot draw another card. Please discard or use one card.",
-                    "Forbidden Island > Too Many Cards",
-                    JOptionPane.WARNING_MESSAGE
-            );
-            TreasureDeck deck = PlayerManager.getInstance().getDeck();
-            deck.pushCard(card);
-            return;
-        }
+    public boolean receiveCard(TreasureDeckCard card) {
         card.setHolder(this);
         inventoryItems.add(card);
+        return inventoryItems.size() <= 5;
     }
 
     public void transferCard(Player player, TreasureDeckCard card) {
@@ -61,12 +52,19 @@ public class Player {
             );
         }
         inventoryItems.remove(card);
-        player.receiveCard(card);
+        card.setHolder(player);
+        player.inventoryItems.add(card);
+        System.out.println(inventoryItems);
+        PlayerInventoryVisualizer.updateHand(this);
+        PlayerInventoryVisualizer.updateHand(player);
+        PlayerManager.getInstance().decrementActionsLeft();
+        System.out.println("Gave " + player.getPlayerType().getName() + " card from player " + playerType.getName());
     }
 
     public Pawn getPawn() {
         return pawn;
     }
+
 
     public String getName() {
         return name;
